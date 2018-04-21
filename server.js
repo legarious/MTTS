@@ -40,7 +40,13 @@ app.use(
 app.use(express.static(__dirname + '/public'));
 // route redirect to login
 app.get('/', function(req, res) {
-  res.render('login');
+  res.render('login', {
+    layout: false
+  });
+});
+// TESTING
+app.get('/admin', (req, res) => {
+  res.render('admin');
 });
 
 //Get Data
