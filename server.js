@@ -40,7 +40,6 @@ app.use(
 app.use(express.static(__dirname + '/public'));
 // route redirect to login
 app.get('/', function(req, res) {
-<<<<<<< HEAD
   res.render('login', {
     layout: false
   });
@@ -48,9 +47,6 @@ app.get('/', function(req, res) {
 // TESTING
 app.get('/admin', (req, res) => {
   res.render('admin');
-=======
-  res.render('login');
->>>>>>> 33e8a69100ffbd18f3edc2cea91c836c191f4ed6
 });
 
 //Get Data
