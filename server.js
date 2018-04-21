@@ -13,15 +13,14 @@ var hbs = require('express-handlebars');
 
 
 // Database connect
-var url = 'mongodb://localhost:27017/myproject ';
+var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
 MongoClient.connect(url, function(err,db){
     if(err) throw err;
-    
     console.log("Database Created!");
     db.close;
 });
-var dbName = 'myproject';
 
+dbName ='mtts';
 //for insert data to mongodb
 app.engine(
     '.hbs',
