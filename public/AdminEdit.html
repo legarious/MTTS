@@ -299,16 +299,16 @@
                       <br>
                       <div class="btn-group btn-group-toggle" data-toggle="buttons" id="type">
                         <label class="btn btn-secondary">
-                          <input type="radio" name="type" id="admin" value="admin" required autocomplete="off"> Admin
+                          <input type="radio" name="Type" id="admin" value="Admin" required autocomplete="off"> Admin
                         </label>
                         <label class="btn btn-secondary">
-                          <input type="radio" name="type" id="staff" value="staff" required autocomplete="off"> Staff
+                          <input type="radio" name="Type" id="staff" value="Staff" required autocomplete="off"> Staff
                         </label>
                         <label class="btn btn-secondary">
-                          <input type="radio" name="type" id="guard" value="guard" required autocomplete="off"> Guard
+                          <input type="radio" name="Type" id="guard" value="Guard" required autocomplete="off"> Guard
                         </label>
                         <label class="btn btn-secondary">
-                          <input type="radio" name="type" id="driver" value="driver" required autocomplete="off"> Driver
+                          <input type="radio" name="Type" id="driver" value="Driver" required autocomplete="off"> Driver
                         </label>
                       </div>
                       <br>
@@ -357,33 +357,33 @@
                       <br>
                       <label class="col-sm-3 form-control-label">Hire Date</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" name="Hire Date">
+                        <input type="text" class="form-control" name="HDate">
                       </div>
                       <label class="col-sm-3 form-control-label">Position</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" name="Position">
+                        <input type="text" class="form-control" name="POS">
                       </div>
                       <label class="col-sm-3 form-control-label">Home Address</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" name="Home Address">
+                        <input type="text" class="form-control" name="HAddress">
                       </div>
                       <label class="col-sm-3 form-control-label">Mobile Phone</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" name="Mobile Phone">
+                        <input type="text" class="form-control" name="MPhone">
                       </div>
                       <label class="col-sm-3 form-control-label">Home Number</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" name="Home Number">
+                        <input type="text" class="form-control" name="HPhone">
                       </div>
                     </div>
-
-                  </form>
-                  <div class="line"></div>
-                  <div class="form-group row">
-                    <div class="col-sm-4 offset-sm-3">
-                      <button type="Submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                    <div class="line"></div>
+                    <div class="form-group row">
+                      <div class="col-sm-4 offset-sm-3">
+                        <button type="Submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                      </div>
                     </div>
-                  </div>
+                  </form>
+
                 </div>
               </div>
             </div>
@@ -417,10 +417,10 @@
   <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
   <script src="js/front.js"></script>
   <script>
-    $('#type').on('change', (e) => {
+    $('#type').on('change', () => {
       console.log($('input[name=type]:checked').val());
       var type = $('input[name=type]:checked').val();
-      if (type === 'driver') {
+      if (type === 'Driver') {
         $('input[name=Company]').prop('disabled', false);
       } else {
         $('input[name=Company]').prop('disabled', true);
