@@ -8,8 +8,9 @@ var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
+var hbs = require('express-handlebars');
 //##############################################################
-// hahahahahahaha
+
 
 // Database connect
 var url = 'mongodb://localhost:27017/myproject ';
@@ -22,6 +23,15 @@ MongoClient.connect(url, function(err,db){
 var dbName = 'myproject';
 
 //for insert data to mongodb
+app.engine(
+    '.hbs',
+    hbs({
+        extname: '.hbs',
+        defaultLayout: 'main',
+    })
+)
+app.set('view engine', '.hbs');
+
 var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
@@ -31,7 +41,7 @@ app.use(bodyParser.urlencoded({
 app.use(express.static(__dirname + '/public'));
 // route redirect to login
 app.get('/', function (req, res) {
-    res.redirect('/login.html');
+    res.render('login');
 });
 
 
@@ -52,6 +62,7 @@ io.on('connection', function (socket)
         {
             console.log(countpeople); 
             io.emit('h',countpeople);
+            db.close();
         })
     })
     
