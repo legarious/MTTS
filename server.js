@@ -57,22 +57,6 @@ app.get('/admin', (req, res) => {
 
 //Update Data
 
-// io.on('connection', function(socket) {
-//   var countpeople;
-//   MongoClient.connect(url, function(err, db) {
-//     var dbo = db.db('mtts');
-//     if (err) throw err;
-//     dbo
-//       .collection('accounts')
-//       .count({ Type: 'Staff' })
-//       .then(function(countpeople) {
-//         console.log(countpeople);
-//         io.emit('h', countpeople);
-//         db.close();
-//       });
-//   });
-// });
-
 io.on('connection', function(socket) {
   db
     .collection('accounts')
@@ -82,43 +66,7 @@ io.on('connection', function(socket) {
       db.close();
     });
 });
-// var dbo = mongoose.connect(
-//   'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts'
-// );
-// var db = mongoose.connection;
-// db.on('error', console.error.bind(console, 'connection error:'));
-// db
-//   .collection('accounts')
-//   .count({ Type: 'Staff' })
-//   .then(function(countpeople) {
-//     console.log(countpeople);
-//     io.emit('h', countpeople);
-//     db.close();
-//   });
 
-//insert from AdminEdit
-// app.post('/insert', function(req, res) {
-//   console.log(req.body);
-//   MongoClient.connect(url, function(err, db) {
-//     if (err) throw err;
-//     var dbo = db.db(dbName);
-//     var myobj = req.body;
-//     var Type = req.body.Type;
-//     var accounts = dbo.collection('accounts');
-
-//     dbo.collection('accounts').findOne({ ID: req.body.ID }, function(err, data) {
-//         if (data) {
-//           res.redirect('/AdminEdit.html');
-//           console.log('This ID already exist');
-//         } else {
-//           dbo.collection('accounts').save(req.body, function(err2, data2) {
-//             res.redirect('/AdminEdit.html');
-//             console.log('ID Added');
-//           });
-//         }
-//       });
-//   });
-// });
 app.post('/insert', function(req, res) {
   console.log(req.body);
   // if (err) throw err;
