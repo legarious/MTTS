@@ -51,27 +51,19 @@
               <!-- Navbar Brand -->
               <a href="index.html" class="navbar-brand">
                 <div class="brand-text brand-big">
-<<<<<<< HEAD
                   <strong>Mae Moh </strong>
                   <span>Truck Tracking System</span>
                 </div>
-=======
-                  <strong>Mae Moh </strong><span>Truck Tracking System</span></div>
->>>>>>> c34b72fcb285b901bd6dba8e4d3ec543723d22c6
                 <div class="brand-text brand-small">
                   <strong>MTTS</strong>
                 </div>
               </a>
               <!-- Toggle Button-->
-<<<<<<< HEAD
               <a id="toggle-btn" href="#" class="menu-btn active">
                 <span></span>
                 <span></span>
                 <span></span>
               </a>
-=======
-              <a id="toggle-btn" href="#" class="menu-btn active"><span></span><span></span><span></span></a>
->>>>>>> c34b72fcb285b901bd6dba8e4d3ec543723d22c6
             </div>
             <!-- Navbar Menu -->
             <ul class="nav-menu list-unstyled d-flex flex-md-row align-items-md-center">
@@ -85,13 +77,9 @@
               <li class="nav-item dropdown">
                 <a id="notifications" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                   class="nav-link">
-<<<<<<< HEAD
                   <i class="fa fa-bell-o"></i>
                   <span class="badge bg-red">10</span>
                 </a>
-=======
-                  <i class="fa fa-bell-o"></i><span class="badge bg-red">10</span></a>
->>>>>>> c34b72fcb285b901bd6dba8e4d3ec543723d22c6
                 <ul aria-labelledby="notifications" class="dropdown-menu">
                   <li>
                     <a rel="nofollow" href="#" class="dropdown-item">
@@ -127,13 +115,9 @@
               <li class="nav-item dropdown">
                 <a id="messages" rel="nofollow" data-target="#" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
                   class="nav-link">
-<<<<<<< HEAD
                   <i class="fa fa-envelope-o"></i>
                   <span class="badge bg-orange">1</span>
                 </a>
-=======
-                  <i class="fa fa-envelope-o"></i><span class="badge bg-orange">1</span></a>
->>>>>>> c34b72fcb285b901bd6dba8e4d3ec543723d22c6
                 <ul aria-labelledby="notifications" class="dropdown-menu">
                   <li>
                     <a rel="nofollow" href="#" class="dropdown-item d-flex">
@@ -141,12 +125,8 @@
                         <img src="#" alt="..." class="img-fluid rounded-circle">
                       </div>
                       <div class="msg-body">
-<<<<<<< HEAD
                         <h3 class="h5">Jason Doe</h3>
                         <span>Maintenance in Progress</span>
-=======
-                        <h3 class="h5">Jason Doe</h3><span>Maintenance in Progress</span>
->>>>>>> c34b72fcb285b901bd6dba8e4d3ec543723d22c6
                       </div>
                     </a>
                   </li>
@@ -182,12 +162,8 @@
             <p>Admin</p>
           </div>
         </div>
-<<<<<<< HEAD
         <!-- Sidebar Navidation Menus-->
         <span class="heading">Main</span>
-=======
-        <!-- Sidebar Navidation Menus--><span class="heading">Main</span>
->>>>>>> c34b72fcb285b901bd6dba8e4d3ec543723d22c6
         <ul class="list-unstyled">
           <li>
             <a href="Admin.html">
@@ -209,12 +185,8 @@
             <a href="Notification.html">
               <i class="icon-list"></i>Notification</a>
           </li>
-<<<<<<< HEAD
         </ul>
         <span class="heading">Extras</span>
-=======
-        </ul><span class="heading">Extras</span>
->>>>>>> c34b72fcb285b901bd6dba8e4d3ec543723d22c6
         <ul class="list-unstyled">
           <li class="active">
             <a href="AdminEdit.html">
@@ -311,7 +283,6 @@
             </div>
           </div>
         </div>
-<<<<<<< HEAD
         <!-- Edit Form -->
         <section class="forms no-padding-top">
           <div class="container-fluid">
@@ -324,17 +295,23 @@
                   </div>
                   <form method="post" action="http://localhost:3000/insert">
                     <div class="card-body">
-                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                        <label class="btn btn-secondary active">
-                          <input type="radio" name="options" id="option1" autocomplete="off">Admin
+                      <label class="col-sm-3 form-control-label">Account Type</label>
+                      <br>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="type">
+                        <label class="btn btn-secondary">
+                          <input type="radio" name="type" id="admin" value="admin" required autocomplete="off"> Admin
                         </label>
                         <label class="btn btn-secondary">
-                          <input type="radio" name="options" id="option2" autocomplete="off">Staff
+                          <input type="radio" name="type" id="staff" value="staff" required autocomplete="off"> Staff
                         </label>
                         <label class="btn btn-secondary">
-                          <input type="radio" name="options" id="option3" autocomplete="off">Guard
+                          <input type="radio" name="type" id="guard" value="guard" required autocomplete="off"> Guard
+                        </label>
+                        <label class="btn btn-secondary">
+                          <input type="radio" name="type" id="driver" value="driver" required autocomplete="off"> Driver
                         </label>
                       </div>
+                      <br>
                       <label class="col-sm-3 form-control-label">Username</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" name="Username">
@@ -345,7 +322,7 @@
                       </div>
                       <label class="col-sm-3 form-control-label">Company</label>
                       <div class="col-sm-9">
-                        <input type="text" class="form-control" name="Company">
+                        <input type="text" class="form-control" name="Company" disabled>
                       </div>
                       <label class="col-sm-3 form-control-label">ID</label>
                       <div class="col-sm-9">
@@ -368,9 +345,16 @@
                         <input type="text" class="form-control" name="Age">
                       </div>
                       <label class="col-sm-3 form-control-label">Sex</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" name="Sex">
+                      <br>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons" id="Sex">
+                        <label class="btn btn-secondary">
+                          <input type="radio" name="Sex" id="Male" value="Male" required autocomplete="off"> Male
+                        </label>
+                        <label class="btn btn-secondary">
+                          <input type="radio" name="Sex" id="Female" value="Female" required autocomplete="off"> Female
+                        </label>
                       </div>
+                      <br>
                       <label class="col-sm-3 form-control-label">Hire Date</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" name="Hire Date">
@@ -418,120 +402,11 @@
                 <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>
               </p>
               <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-=======
-        <!-- Forms Section-.->
-          <section class="forms no-padding-top">
-            <div class="container-fluid">
-              <div class="row">
-                <!-- Horizontal Form-->
-        <div class="col-lg-12">
-          <div class="card">
-            <div class="card-header d-flex align-items-center">
-              <h3 class="h4">ADD FORM</h3>
-            </div>
-            <form method="post" action="http://localhost:3000/insert">
-              <div class="btn-group btn-group-toggle" data-toggle="buttons" id="type">
-                <label class="btn btn-secondary">
-                  <input type="radio" name="type" id="admin" value="admin" required autocomplete="off"> Admin
-                </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="type" id="staff" value="staff" required autocomplete="off"> Staff
-                </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="type" id="guard" value="guard" required autocomplete="off"> Guard
-                </label>
-                <label class="btn btn-secondary">
-                  <input type="radio" name="type" id="driver" value="driver" required autocomplete="off"> Driver
-                </label>
-              </div>
-              <div class="card-body">
-                <label class="col-sm-3 form-control-label">Company</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="Company" disabled>
-                </div>
-                <label class="col-sm-3 form-control-label ">Staff Type</label>
-
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="Type" placeholder="Staff, Guard, Driver">
-                </div>
-                <label class="col-sm-3 form-control-label">ID</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="ID">
-                </div>
-                <label class="col-sm-3 form-control-label">First Name</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="DriverName">
-                </div>
-                <label class="col-sm-3 form-control-label">Last Name</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="LastName">
-                </div>
-                <label class="col-sm-3 form-control-label">Birth Date</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="Bdate">
-                </div>
-                <label class="col-sm-3 form-control-label">Age</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="Age">
-                </div>
-                <label class="col-sm-3 form-control-label">Sex</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="sex" placeholder="Male, Female">
-                </div>
-                <label class="col-sm-3 form-control-label">Hire Date</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="Hdate">
-                </div>
-                <label class="col-sm-3 form-control-label">Position</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="POS">
-                </div>
-                <label class="col-sm-3 form-control-label">Home Address</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="HomeAdd">
-                </div>
-                <label class="col-sm-3 form-control-label">Mobile Phone</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="Phone">
-                </div>
-                <label class="col-sm-3 form-control-label">Home Number</label>
-                <div class="col-sm-9">
-                  <input type="text" class="form-control" name="HomeNum">
-                </div>
-                <div class="form-group row">
-                  <div class="col-sm-4 offset-sm-3">
-                    <button type="Submit" class="btn btn-primary btn-lg btn-block">Submit</button>
-                  </div>
-                </div>
-            </form>
-            <div class="line"></div>
->>>>>>> c34b72fcb285b901bd6dba8e4d3ec543723d22c6
             </div>
           </div>
         </div>
       </footer>
     </div>
-<<<<<<< HEAD
-=======
-    </section>
-    <!-- Page Footer-->
-    <footer class="main-footer">
-      <div class="container-fluid">
-        <div class="row">
-          <div class="col-sm-6">
-            <p>Your company &copy; 2017-2019</p>
-          </div>
-          <div class="col-sm-6 text-right">
-            <p>Design by
-              <a href="https://bootstrapious.com/admin-templates" class="external">Bootstrapious</a>
-            </p>
-            <!-- Please do not remove the backlink to us unless you support further theme's development at https://bootstrapious.com/donate. It is part of the license conditions. Thank you for understanding :)-->
-          </div>
-        </div>
-      </div>
-    </footer>
-  </div>
->>>>>>> c34b72fcb285b901bd6dba8e4d3ec543723d22c6
   </div>
   </div>
   <!-- Javascript files-->
@@ -541,20 +416,17 @@
   <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
   <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
   <script src="js/front.js"></script>
-<<<<<<< HEAD
-=======
-
-
   <script>
     $('#type').on('change', (e) => {
       console.log($('input[name=type]:checked').val());
       var type = $('input[name=type]:checked').val();
       if (type === 'driver') {
         $('input[name=Company]').prop('disabled', false);
+      } else {
+        $('input[name=Company]').prop('disabled', true);
       }
     })
   </script>
->>>>>>> c34b72fcb285b901bd6dba8e4d3ec543723d22c6
 </body>
 
 </html>
