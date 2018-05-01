@@ -55,7 +55,7 @@ app.get('/admin', (req, res) => {
 
 app.get('/home', (req, res) => {
   res.render('home');
-})
+});
 
 //Get Data
 
