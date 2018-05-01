@@ -53,6 +53,10 @@ app.get('/admin', (req, res) => {
   res.render('admin');
 });
 
+app.get('/home', (req, res) => {
+  res.render('home');
+})
+
 //Get Data
 
 //Update Data
