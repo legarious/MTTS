@@ -35,7 +35,9 @@
       <nav class="side-navbar">
         {{> _sidebar}}
       </nav>
-      {{> _body}}
+      <div class="content-inner">
+        {{> _body}} {{> _mapper}}
+      </div>
     </div>
     {{> _footer}}
   </div>
