@@ -68,34 +68,33 @@
           </div>
         </div>
       </div>
+
     </div>
+    <!-- Javascript files-->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="vendor/popper.js/umd/popper.min.js"> </script>
+    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+    <script src="js/front.js"></script> //Sample login
+    <script>
+      $('#login').on('click', function () {
 
-  </div>
-  <!-- Javascript files-->
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-  <script src="vendor/popper.js/umd/popper.min.js"> </script>
-  <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-  <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-  <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
-  <script src="js/front.js"></script> //Sample login
-  <script>
-    $('#login').on('click', function () {
+        if ($('#login-username').val() === 'admin') {
+          window.location = './admin.html';
+        } else if ($('#login-username').val() === 'staff') {
+          window.location = './staff.html';
+        } else if ($('#login-username').val() === 'guard') {
+          window.location = './GuardAuthentication.html';
+        } else {
+          alert("Your Username or Password is wrong..");
+        }
 
-      if ($('#login-username').val() === 'admin') {
-        window.location = './admin.html';
-      } else if ($('#login-username').val() === 'staff') {
-        window.location = './staff.html';
-      } else if ($('#login-username').val() === 'guard') {
-        window.location = './GuardAuthentication.html';
-      } else {
-        alert("Your Username or Password is wrong..");
-      }
-
-    })
-    $('#forgot').on('click', function () {
-      alert('Your admin has been inform of your problem.\nBe patience.');
-    })    
-  </script>
+      })
+      $('#forgot').on('click', function () {
+        alert('Your admin has been inform of your problem.\nBe patience.');
+      })    
+    </script>
 </body>
 
 </html>

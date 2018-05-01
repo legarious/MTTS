@@ -9,14 +9,18 @@ var io = require('socket.io').listen(server);
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var hbs = require('express-handlebars');
+var mongoose = require('mongoose');
 //##############################################################
-
+//Load mongoose model
+require('./model/User');
+var User = mongoose.model('accounts');
 // Database connect
 var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  console.log('Database Created!');
-  db.close;
+mongoose.connect(url);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('We are connect!!');
 });
 
 dbName = 'mtts';
@@ -58,45 +62,51 @@ app.get('/admin', (req, res) => {
 //Update Data
 
 io.on('connection', function(socket) {
-  var countpeople;
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db(dbName);
-    dbo
-      .collection('accounts')
-      .count({ Type: 'Staff' })
-      .then(function(countpeople) {
-        console.log(countpeople);
-        io.emit('h', countpeople);
-        db.close();
-      });
-  });
+  db
+    .collection('accounts')
+    .count({ Type: 'Staff' }, function(err, countpeople) {
+      console.log(countpeople);
+      io.emit('h', countpeople);
+      db.close();
+    });
 });
 
-//insert from AdminEdit
 app.post('/insert', function(req, res) {
   console.log(req.body);
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db(dbName);
-    var myobj = req.body;
-    var Type = req.body.Type;
-    var accounts = dbo.collection('accounts');
-
-    dbo
-      .collection('accounts')
-      .findOne({ ID: req.body.ID }, function(err, data) {
-        if (data) {
-          res.redirect('/AdminEdit.html');
-          console.log('This ID already exist');
-        } else {
-          dbo.collection('accounts').save(req.body, function(err2, data2) {
-            res.redirect('/AdminEdit.html');
-            console.log('ID Added');
-          });
-        }
-      });
+  // if (err) throw err;
+  var newUser = new User({
+    Type: req.body.Type,
+    Username: req.body.Username,
+    Password: req.body.Password,
+    Company: req.body.Company,
+    ID: req.body.ID,
+    Firstname: req.body.Firstname,
+    Lastname: req.body.Lastname,
+    BirthDate: req.body.BirthDate,
+    Age: req.body.Age,
+    Sex: req.body.Sex,
+    HDate: req.body.HDate,
+    POS: req.body.POS,
+    HAddress: req.body.HAddress,
+    MPhone: req.body.MPhone,
+    HPhone: req.body.HPhone
   });
+  db.collection('accounts').findOne(
+    {
+      ID: req.body.ID
+    },
+    function(err, data) {
+      if (data) {
+        res.redirect('/AdminEdit.html');
+        console.log('This ID already exist');
+      } else {
+        db.collection('accounts').save(req.body, function(err, data) {
+          res.redirect('/AdminEdit.html');
+          console.log('ID Added');
+        });
+      }
+    }
+  );
 });
 
 // Change the 404 message modifing the middleware
