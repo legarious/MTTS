@@ -48,9 +48,12 @@ app.get('/', function(req, res) {
     layout: false
   });
 });
+<<<<<<< HEAD
 app.get('/home', (req, res) => {
   res.render('home');
 });
+=======
+>>>>>>> fda43ff196f155cd5a33361c2e036631c94e136e
 // TESTING
 app.get('/admin', (req, res) => {
   res.render('admin');
@@ -78,7 +81,6 @@ app.post('/insert', function(req, res) {
     Username: req.body.Username,
     Password: req.body.Password,
     Company: req.body.Company,
-    Plate: req.body.Plate,
     ID: req.body.ID,
     Firstname: req.body.Firstname,
     Lastname: req.body.Lastname,

@@ -29,7 +29,17 @@
 </head>
 
 <body>
-  {{> _navbar}} {{{body}}}{{>_sidebar}}{{>_footer}}
+  <div class="page home-page">
+    {{> _navbar}}
+    <div class="page-content d-flex align-items-stretch">
+      <nav class="side-navbar">
+        {{> _sidebar}}
+      </nav>
+      {{> _body}}
+    </div>
+    {{> _footer}}
+  </div>
+
 </body>
 
 </html>
