@@ -44,6 +44,10 @@ app.get('/', function(req, res) {
     layout: false
   });
 });
+app.get('/home', (req, res) => {
+  res.render('home');
+});
+
 // TESTING
 app.get('/admin', (req, res) => {
   res.render('admin');
