@@ -324,10 +324,6 @@
                       <div class="col-sm-9">
                         <input type="text" class="form-control" name="Company" disabled>
                       </div>
-                      <label class="col-sm-3 form-control-label">Truck Plate</label>
-                      <div class="col-sm-9">
-                        <input type="text" class="form-control" name="Plate" disabled>
-                      </div>
                       <label class="col-sm-3 form-control-label">ID</label>
                       <div class="col-sm-9">
                         <input type="text" class="form-control" name="ID">
@@ -422,18 +418,13 @@
   <script src="js/front.js"></script>
   <script>
     $('#type').on('change', () => {
-      console.log($('input[name=Type]:checked').val());
-      var type = $('input[name=Type]:checked').val();
+      console.log($('input[name=type]:checked').val());
+      var type = $('input[name=type]:checked').val();
       if (type === 'Driver') {
         $('input[name=Company]').prop('disabled', false);
-        $('input[name=Plate]').prop('disabled', false);
       } else {
         $('input[name=Company]').prop('disabled', true);
-        $('input[name=Plate]').prop('disabled', true);
       }
-    })
-    $('#Sex').on('change', () => {
-      console.log($('input[name=Sex]:checked').val());
     })
   </script>
 </body>
