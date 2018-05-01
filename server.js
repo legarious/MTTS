@@ -79,6 +79,7 @@ app.post('/insert', function(req, res) {
     Username: req.body.Username,
     Password: req.body.Password,
     Company: req.body.Company,
+    Plate: req.body.Plate,
     ID: req.body.ID,
     Firstname: req.body.Firstname,
     Lastname: req.body.Lastname,
