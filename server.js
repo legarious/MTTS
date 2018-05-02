@@ -3,7 +3,6 @@
 
 var http = require('http');
 var express = require('express');
-
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
@@ -56,21 +55,52 @@ app.get('/logout', function(req, res) {
   });
 });
 //Admin index---------------------------------------
+
+/** Before
+ * app.get('/admin', (req, res) => {
+ *   res.render('adminhome'); <- ก่อนหน้านี้เราไม่ได้ส่งค่าไป
+ * });
+ */
+// After
 app.get('/admin', (req, res) => {
-  res.render('adminhome');
+  res.render('adminhome', {
+    admin: true // ตอนนี้เราส่งค่า admin ไปเป็น true ทำให้ตอน render มัน render sidebar ของ admin
+  });
 });
 
+/**
+ * ค่าสามารถส่งไปเป็นอะไรก็ได้ แล้วเราก็สามารถเอาไปใช้ได้
+ * เช่น ส่ง user: 'Pojop P.'
+ * ก็สามารถเอา user ไปใส่ใน sidebar ตรงที่เป็นชื่อคนได้
+ * ---------- sidebar/*.hbs ----------
+ *  ===== Before =====
+ *  5 <div class="title">
+ *  6   <h1 class="h4">{{user}}</h1>
+ *  7    <p>Staff</p>
+ *  8 </div>
+ *  ===== After =====
+ *  5 <div class="title">
+ *  6   <h1 class="h4">Pojop P.</h1> | ใน {{user}} ก็จะถูกแทนที่ด้วย Pojop P. ที่เราส่งมาตอน render
+ *  7    <p>Staff</p>
+ *  8 </div>
+ */
 app.get('/adminedit', (req, res) => {
-  res.render('adminedit');
+  res.render('adminedit', {
+    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+  });
 });
 
 //Staff index----------------------------------------
 app.get('/staff', (req, res) => {
-  res.render('staff');
+  res.render('staff', {
+    staff: true
+  });
 });
 //Guard index----------------------------------------
 app.get('/guard', (req, res) => {
-  res.render('guard');
+  res.render('guard', {
+    guard: true
+  });
 });
 
 // TESTING------------------------------------------
