@@ -57,6 +57,10 @@ app.get('/home', (req, res) => {
   res.render('home');
 });
 
+app.get('/adminedit', (req, res) => {
+  res.render('adminedit');
+});
+
 //Get Data
 
 //Update Data

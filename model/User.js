@@ -7,6 +7,7 @@ var accountSchema = new Schema({
   Username: { type: String, required: true },
   Password: { type: String, required: true },
   Company: { type: String, required: true },
+  Plate: { type: String, required: true },
   ID: { type: String, required: true },
   Firstname: { type: String, required: true },
   Lastname: { type: String, required: true },
