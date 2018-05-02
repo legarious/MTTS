@@ -48,17 +48,33 @@ app.get('/', function(req, res) {
     layout: false
   });
 });
-// TESTING
-app.get('/admin', (req, res) => {
-  res.render('admin');
-});
 
-app.get('/home', (req, res) => {
-  res.render('home');
+app.get('/logout', function(req, res) {
+  res.render('login', {
+    layout: false
+  });
+});
+//Admin index---------------------------------------
+app.get('/admin', (req, res) => {
+  res.render('adminhome');
 });
 
 app.get('/adminedit', (req, res) => {
   res.render('adminedit');
+});
+
+//Staff index----------------------------------------
+app.get('/staff', (req, res) => {
+  res.render('staff');
+});
+//Guard index----------------------------------------
+app.get('/guard', (req, res) => {
+  res.render('guard');
+});
+
+// TESTING------------------------------------------
+app.get('/home', (req, res) => {
+  res.render('home');
 });
 
 //Get Data

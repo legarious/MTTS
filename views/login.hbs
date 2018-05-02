@@ -78,14 +78,14 @@
     <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
     <script src="js/front.js"></script> //Sample login
     <script>
-      $('#login').on('click', function () {
+      $('#login').on('click', function (req, res) {
 
         if ($('#login-username').val() === 'admin') {
-          window.location = './admin.html';
+          window.location = '/admin';
         } else if ($('#login-username').val() === 'staff') {
-          window.location = './staff.html';
+          window.location = '/staff';
         } else if ($('#login-username').val() === 'guard') {
-          window.location = './GuardAuthentication.html';
+          window.location = '/guard';
         } else {
           alert("Your Username or Password is wrong..");
         }
