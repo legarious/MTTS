@@ -63,7 +63,7 @@ app.get('/logout', function(req, res) {
  */
 // After
 app.get('/admin', (req, res) => {
-  res.render('adminhome', {
+  res.render('admin', {
     admin: true // ตอนนี้เราส่งค่า admin ไปเป็น true ทำให้ตอน render มัน render sidebar ของ admin
   });
 });
@@ -90,6 +90,17 @@ app.get('/adminedit', (req, res) => {
   });
 });
 
+app.get('/adminstat', (req, res) => {
+  res.render('adminstat', {
+    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+  });
+});
+
+app.get('/adminbio', (req, res) => {
+  res.render('adminbio', {
+    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+  });
+});
 //Staff index----------------------------------------
 app.get('/staff', (req, res) => {
   res.render('staff', {
