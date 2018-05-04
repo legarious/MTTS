@@ -1,8 +1,8 @@
 /*eslint no-undef: "error"*/
 /*eslint-env node*/
-
 var http = require('http');
 var express = require('express');
+var router = express.Router();
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
@@ -24,11 +24,11 @@ mongoose.connect(url);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log('We are connect!!');
+  console.log('Database connect successfully!!');
 });
 
 dbName = 'mtts';
-//for insert data to mongodb
+//Handlebars middleware
 app.engine(
   '.hbs',
   hbs({
@@ -46,12 +46,15 @@ app.use(
 );
 //express read file in public
 app.use(express.static(__dirname + '/public'));
-// route redirect to login
+
+//use routes
+app.use('/', index);
 
 //Get Data
 
 //Update Data
 
+//count people
 io.on('connection', function(socket) {
   db
     .collection('accounts')
@@ -62,6 +65,7 @@ io.on('connection', function(socket) {
     });
 });
 
+//insert data to database
 app.post('/insert', function(req, res) {
   console.log(req.body);
   // if (err) throw err;
@@ -104,7 +108,7 @@ app.post('/insert', function(req, res) {
 app.use(function(req, res) {
   res.status(404).send("Sorry, that route doesn't exist.");
 });
-// send 'hello' to road A
+// People online in the system
 var online = 0;
 io.on('connection', function(socket) {
   online = online + 1;
@@ -114,9 +118,6 @@ io.on('disconnect', function(socket) {
   online = online - 1;
   io.emit('d', online);
 });
-
-//use routes
-app.use('/', index);
 
 // start the server in the port 3000 !
 server.listen(3000, function() {

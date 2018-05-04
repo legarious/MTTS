@@ -59,15 +59,45 @@ router.get('/adminbio', (req, res) => {
     admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
 });
+
+router.get('/adminnoti', (req, res) => {
+  res.render('adminnoti', {
+    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+  });
+});
 //Staff index----------------------------------------
 router.get('/staff', (req, res) => {
   res.render('staff', {
     staff: true
   });
 });
+
+router.get('/staffbio', (req, res) => {
+  res.render('staffbio', {
+    staff: true
+  });
+});
+
+router.get('/staffnoti', (req, res) => {
+  res.render('staffnoti', {
+    staff: true
+  });
+});
+
+router.get('/staffmap', (req, res) => {
+  res.render('staffmap', {
+    staff: true
+  });
+});
 //Guard index----------------------------------------
 router.get('/guard', (req, res) => {
   res.render('guard', {
+    guard: true
+  });
+});
+
+router.get('/guardbio', (req, res) => {
+  res.render('guardbio', {
     guard: true
   });
 });

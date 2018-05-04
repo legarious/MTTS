@@ -1,0 +1,106 @@
+<!-- Page Header-->
+<header class="page-header">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Overview Map</h2>
+    </div>
+</header>
+<!-- Maps Section-->
+<section class="mapper">
+    <header class="page-header-map">
+        <div class="container-fluid">
+            <h2 class="no-margin-bottom">All Truck Running</h2>
+        </div>
+    </header>
+    <div class="container-fluid">
+        <div id="map" style="margin: 0 auto;" class=" has-shadow"></div>
+        <script>
+
+        </script>
+
+    </div>
+</section>
+<script>
+    (function () {
+        var socket = io('http://localhost:3000');
+        var map = L.map('map').setView([14.071189, 100.613453], 13);
+        var setofendpoint = [{ person: 'START', lat: 13.98752, long: 100.618215 }, { person: 'END', lat: 13.980266, long: 100.554929 }];
+        var setofresults = [];
+        var setofitems = [];
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+        var create = false;
+        var marker;
+        socket.on('c', function (data) {
+            var lat = data.x;
+            var long = data.y;
+            if (create == false) {
+                marker = L.marker([lat, long]).addTo(map);
+                console.log(marker);
+                create = true;
+            } else {
+                var newLatLng = new L.LatLng(lat, long);
+                marker.setLatLng(newLatLng);
+                marker.bindPopup("<b>Hello world!</b><br>Follow me!!!!").openPopup();
+                map.setView([lat, long]);
+            }
+            console.log(data);
+        });
+        socket.on('d', function (online) {
+            $('#online').html(online);
+        });
+    })();
+</script>
+<!--Table-->
+<div class="breadcrumb-holder ">
+</div>
+<div class="tables">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h4">Overall Truck in duty</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Truck Plate</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Company</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th scope="row">1</th>
+                                    <td>AAAA</td>
+                                    <td>Otto</td>
+                                    <td>rty</td>
+                                    <td>Woohoo Co.,Ltd</td>
+
+                                </tr>
+                                <tr>
+                                    <th scope="row">2</th>
+                                    <td>SSSS</td>
+                                    <td>Thornton</td>
+                                    <td>yui</td>
+                                    <td>Woohoo Co.,Ltd</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">3</th>
+                                    <td>DDDD</td>
+                                    <td>the Bird</td>
+                                    <td>fgh</td>
+                                    <td>Hello Co.,Ltd</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
