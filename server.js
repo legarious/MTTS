@@ -14,6 +14,10 @@ var mongoose = require('mongoose');
 //Load mongoose model
 require('./model/User');
 var User = mongoose.model('accounts');
+
+//Load routes
+var index = require('./routes/index');
+
 // Database connect
 var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
 mongoose.connect(url);
@@ -43,81 +47,6 @@ app.use(
 //express read file in public
 app.use(express.static(__dirname + '/public'));
 // route redirect to login
-app.get('/', function(req, res) {
-  res.render('login', {
-    layout: false
-  });
-});
-
-app.get('/logout', function(req, res) {
-  res.render('login', {
-    layout: false
-  });
-});
-//Admin index---------------------------------------
-
-/** Before
- * app.get('/admin', (req, res) => {
- *   res.render('adminhome'); <- ก่อนหน้านี้เราไม่ได้ส่งค่าไป
- * });
- */
-// After
-app.get('/admin', (req, res) => {
-  res.render('admin', {
-    admin: true // ตอนนี้เราส่งค่า admin ไปเป็น true ทำให้ตอน render มัน render sidebar ของ admin
-  });
-});
-
-/**
- * ค่าสามารถส่งไปเป็นอะไรก็ได้ แล้วเราก็สามารถเอาไปใช้ได้
- * เช่น ส่ง user: 'Pojop P.'
- * ก็สามารถเอา user ไปใส่ใน sidebar ตรงที่เป็นชื่อคนได้
- * ---------- sidebar/*.hbs ----------
- *  ===== Before =====
- *  5 <div class="title">
- *  6   <h1 class="h4">{{user}}</h1>
- *  7    <p>Staff</p>
- *  8 </div>
- *  ===== After =====
- *  5 <div class="title">
- *  6   <h1 class="h4">Pojop P.</h1> | ใน {{user}} ก็จะถูกแทนที่ด้วย Pojop P. ที่เราส่งมาตอน render
- *  7    <p>Staff</p>
- *  8 </div>
- */
-app.get('/adminedit', (req, res) => {
-  res.render('adminedit', {
-    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
-  });
-});
-
-app.get('/adminstat', (req, res) => {
-  res.render('adminstat', {
-    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
-  });
-});
-
-app.get('/adminbio', (req, res) => {
-  res.render('adminbio', {
-    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
-  });
-});
-//Staff index----------------------------------------
-app.get('/staff', (req, res) => {
-  res.render('staff', {
-    staff: true
-  });
-});
-//Guard index----------------------------------------
-app.get('/guard', (req, res) => {
-  res.render('guard', {
-    guard: true
-  });
-});
-
-// TESTING------------------------------------------
-app.get('/home', (req, res) => {
-  res.render('home');
-});
 
 //Get Data
 
@@ -185,6 +114,9 @@ io.on('disconnect', function(socket) {
   online = online - 1;
   io.emit('d', online);
 });
+
+//use routes
+app.use('/', index);
 
 // start the server in the port 3000 !
 server.listen(3000, function() {
