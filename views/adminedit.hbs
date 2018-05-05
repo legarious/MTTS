@@ -30,59 +30,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                            {{#each aloha}}
                                             <tr>
-                                                <th scope="row">1</th>
-                                                <th>AAA</th>
-                                                <td>SS12345</td>
-                                                <td>Otto</td>
-                                                <td>rty</td>
-                                                <td>Mimosa Co.,Ltd</td>
+                                                <th scope="row">#</th>
+                                                <th>{{Plate}}</th>
+                                                <td>{{ID}}</td>
+                                                <td>{{Firstname}}</td>
+                                                <td>{{Lastname}}</td>
+                                                <td>{{Company}}</td>
                                                 <td>
                                                     <a href="forms.html">
                                                         <button type="button" class="btn btn-outline-info">EDIT</button>
                                                         <button type="button" class="btn btn-outline-danger">DELETE</button>
                                                 </td>
+                                            </tr>
+                                            {{else}}
+                                            <p>Not thing</p>
+                                            {{/each}}
 
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">2</th>
-                                                <th>SSSS</th>
-                                                <td>SS56789</td>
-                                                <td>Thornton</td>
-                                                <td>yui</td>
-                                                <td>Woohoo Co.,Ltd</td>
-                                                <td>
-                                                    <a href="forms.html">
-                                                        <button type="button" class="btn btn-outline-info">EDIT</button>
-                                                        <button type="button" class="btn btn-outline-danger">DELETE</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">3</th>
-                                                <th>DDD</th>
-                                                <td>DR78945</td>
-                                                <td>the Bird</td>
-                                                <td>fgh</td>
-                                                <td>Hello Co.,Ltd</td>
-                                                <td>
-                                                    <a href="forms.html">
-                                                        <button type="button" class="btn btn-outline-info">EDIT</button>
-                                                        <button type="button" class="btn btn-outline-danger">DELETE</button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row">4</th>
-                                                <th>FFFF</th>
-                                                <td>DR12345</td>
-                                                <td>Otto</td>
-                                                <td>cvb</td>
-                                                <td>Goodbye Co.,Ltd</td>
-                                                <td>
-                                                    <a href="forms.html">
-                                                        <button type="button" class="btn btn-outline-info">EDIT</button>
-                                                        <button type="button" class="btn btn-outline-danger">DELETE</button>
-                                                </td>
-                                            </tr>
                                         </tbody>
                                     </table>
                                 </div>

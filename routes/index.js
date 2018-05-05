@@ -1,5 +1,14 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+//Load mongoose model
+require('../model/User');
+var User = mongoose.model('accounts');
+
+var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
+mongoose.connect(url);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
 
 router.get('/', function(req, res) {
   res.render('login', {
@@ -42,10 +51,15 @@ router.get('/admin', (req, res) => {
  *  7    <p>Staff</p>
  *  8 </div>
  */
+// router.get('/adminedit', (req, res) => {
+//   res.render('adminedit', {
+//     admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+//   });
+// });
+
 router.get('/adminedit', (req, res) => {
-  res.render('adminedit', {
-    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
-  });
+  var aloha = db.collection('accounts').find({ Type: { $not: /^A.*/ } });
+  res.render('adminedit', { aloha });
 });
 
 router.get('/adminstat', (req, res) => {

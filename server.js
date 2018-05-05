@@ -74,6 +74,7 @@ app.post('/insert', function(req, res) {
     Username: req.body.Username,
     Password: req.body.Password,
     Company: req.body.Company,
+    Plate: req.body.Plate,
     ID: req.body.ID,
     Firstname: req.body.Firstname,
     Lastname: req.body.Lastname,
@@ -92,11 +93,11 @@ app.post('/insert', function(req, res) {
     },
     function(err, data) {
       if (data) {
-        res.redirect('/AdminEdit.html');
+        res.redirect('/adminedit');
         console.log('This ID already exist');
       } else {
         db.collection('accounts').save(req.body, function(err, data) {
-          res.redirect('/AdminEdit.html');
+          res.redirect('/adminedit');
           console.log('ID Added');
         });
       }
