@@ -58,8 +58,13 @@ router.get('/admin', (req, res) => {
 // });
 
 router.get('/adminedit', (req, res) => {
-  var aloha = db.collection('accounts').find({ Type: { $not: /^A.*/ } });
-  res.render('adminedit', { aloha });
+  // var aloha = db.collection('accounts').find({ Type: { $not: /^A.*/ } });
+  User.find().then(user => {
+    res.render('adminedit', {
+      user,
+      admin: true
+    });
+  });
 });
 
 router.get('/adminstat', (req, res) => {
