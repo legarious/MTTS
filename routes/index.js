@@ -5,11 +5,6 @@ var mongoose = require('mongoose');
 require('../model/User');
 var User = mongoose.model('accounts');
 
-var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
-mongoose.connect(url);
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-
 router.get('/', function(req, res) {
   res.render('login', {
     layout: false
@@ -36,6 +31,7 @@ router.get('/admin', (req, res) => {
       admin: true
     });
   });
+  db.close;
 });
 
 /**
@@ -62,7 +58,7 @@ router.get('/admin', (req, res) => {
 
 router.get('/adminedit', (req, res) => {
   // var aloha = db.collection('accounts').find({ Type: { $not: /^A.*/ } });
-  User.find().then(user => {
+  User.find({}).then(user => {
     res.render('adminedit', {
       user,
       admin: true
