@@ -162,34 +162,27 @@
                 <tr>
                   <th>#</th>
                   <th>Truck Plate</th>
+                  <th>Type</th>
+                  <th>ID</th>
                   <th>First Name</th>
                   <th>Last Name</th>
                   <th>Company</th>
                 </tr>
               </thead>
               <tbody>
+                {{#each user}}
                 <tr>
-                  <th scope="row">1</th>
-                  <td>AAAA</td>
-                  <td>Otto</td>
-                  <td>rty</td>
-                  <td>Woohoo Co.,Ltd</td>
-
+                  <th scope="row">#</th>
+                  <th>{{Plate}}</th>
+                  <th>{{Type}}</th>
+                  <td>{{ID}}</td>
+                  <td>{{Firstname}}</td>
+                  <td>{{Lastname}}</td>
+                  <td>{{Company}}</td>
                 </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>SSSS</td>
-                  <td>Thornton</td>
-                  <td>yui</td>
-                  <td>Woohoo Co.,Ltd</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>DDDD</td>
-                  <td>the Bird</td>
-                  <td>fgh</td>
-                  <td>Hello Co.,Ltd</td>
-                </tr>
+                {{else}}
+                <p>Not thing</p>
+                {{/each}}
               </tbody>
             </table>
           </div>

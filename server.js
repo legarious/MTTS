@@ -121,7 +121,7 @@ io.on('disconnect', function(socket) {
 });
 
 // start the server in the port 3000 !
-server.listen(4000, function() {
+server.listen(3000, function() {
   console.log('Example app Running on port 3000.');
 });
 

@@ -30,8 +30,11 @@ router.get('/logout', function(req, res) {
  */
 // After
 router.get('/admin', (req, res) => {
-  res.render('admin', {
-    admin: true // ตอนนี้เราส่งค่า admin ไปเป็น true ทำให้ตอน render มัน render sidebar ของ admin
+  User.find({ Type: 'Driver' }).then(user => {
+    res.render('admin', {
+      user,
+      admin: true
+    });
   });
 });
 
