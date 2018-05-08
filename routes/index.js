@@ -31,7 +31,7 @@ router.get('/admin', (req, res) => {
       admin: true
     });
   });
-  db.close;
+ 
 });
 
 /**
