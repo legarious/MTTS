@@ -61,7 +61,6 @@ io.on('connection', function(socket) {
     .count({ Type: 'Staff' }, function(err, countpeople) {
       console.log(countpeople);
       io.emit('h', countpeople);
-      db.close();
     });
 });
 

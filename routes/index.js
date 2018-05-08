@@ -25,13 +25,20 @@ router.get('/logout', function(req, res) {
  */
 // After
 router.get('/admin', (req, res) => {
-  User.find({ Type: 'Driver' }).then(user => {
+  User.find({ Type: 'Driver' }, function(err, docs) {
     res.render('admin', {
-      user,
+      user: docs,
       admin: true
     });
   });
- 
+  //
+
+  // User.find({ Type: 'Driver' }).then(user => {
+  //   res.render('admin', {
+  //     user,
+  //     admin: true
+  //   });
+  // });
 });
 
 /**
@@ -58,12 +65,16 @@ router.get('/admin', (req, res) => {
 
 router.get('/adminedit', (req, res) => {
   // var aloha = db.collection('accounts').find({ Type: { $not: /^A.*/ } });
-  User.find({}).then(user => {
+  User.find({}, function(err, docs) {
     res.render('adminedit', {
-      user,
+      user: docs,
       admin: true
     });
   });
+  // User.find({}).then(user => {
+  //   console.log('a');
+
+  // });
 });
 
 router.get('/adminstat', (req, res) => {
