@@ -5,6 +5,7 @@
   "main": "server.js",
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
+    "connect-mongo": "^2.0.1",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "express-mongoose": "^0.1.0",

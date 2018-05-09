@@ -10,14 +10,16 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var hbs = require('express-handlebars');
 var mongoose = require('mongoose');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+var bodyParser = require('body-parser');
+
 //##############################################################
 //Load mongoose model
 require('./model/User');
 var User = mongoose.model('accounts');
-
 //Load routes
 var index = require('./routes/index');
-
 // Database connect
 var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
 mongoose.connect(url);
@@ -36,8 +38,8 @@ app.engine(
     defaultLayout: 'main'
   })
 );
+
 app.set('view engine', '.hbs');
-var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -46,7 +48,16 @@ app.use(
 );
 //express read file in public
 app.use(express.static(__dirname + '/public'));
-
+//session use
+app.use(
+  session({
+    secret: 'PJtheBest',
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: { secure: true }
+  })
+);
 //use routes
 app.use('/', index);
 
@@ -92,11 +103,11 @@ app.post('/insert', function(req, res) {
     },
     function(err, data) {
       if (data) {
-        res.redirect('/adminedit');
+        res.render('adminedit');
         console.log('This ID already exist');
       } else {
         db.collection('accounts').save(req.body, function(err, data) {
-          res.redirect('/adminedit');
+          res.render('adminedit');
           console.log('ID Added');
         });
       }
