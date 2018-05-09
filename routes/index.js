@@ -14,17 +14,22 @@ var User = mongoose.model('accounts');
 
 //Authentication and Authorization Middleware
 //Auth Admin
-// var authadmin = function(req, res, next) {
-//   console.log(req.session);
-//   if ((req.session.user = undefined)) {
-//     res.redirect('login');
-//   } else {
-//     if (req.session.Type == 'Admin') {
-//       console.log('oooo');
-//       return next();
-//     }
+var authadmin = function(req, res, next) {
+  console.log(req.session);
+  if (!req.session.user) {
+    res.redirect('login');
+  } else if (req.session.type == 'Admin') {
+    console.log('oooo');
+    return next();
+  }
+};
+
+// {
+//   if (req.session.Type == 'Admin') {
+//     console.log('oooo');
+//     return next();
 //   }
-// };
+// }
 
 // //Auth Staff
 // var authstaff = function(req, res, next) {
@@ -98,6 +103,7 @@ router.post('/login', function(req, res) {
     });
 });
 router.get('/logout', function(req, res) {
+  req.session.destroy();
   res.render('login', {
     layout: false
   });
@@ -110,7 +116,7 @@ router.get('/logout', function(req, res) {
  * });
  */
 // After
-router.get('/admin', (req, res) => {
+router.get('/admin', authadmin, (req, res) => {
   console.log(req.session);
   User.find({ Type: 'Driver' }, function(err, docs) {
     res.render('admin', {
@@ -155,7 +161,7 @@ router.get('/adminedit', (req, res) => {
   User.find({}, function(err, docs) {
     res.render('adminedit', {
       user: docs,
-      staff: true,
+      admin: true,
       name: req.session.Firstname
     });
   });
@@ -163,7 +169,7 @@ router.get('/adminedit', (req, res) => {
 
 router.get('/adminstat', (req, res) => {
   res.render('adminstat', {
-    staff: true,
+    admin: true,
     name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
 });
@@ -177,7 +183,7 @@ router.get('/adminbio', (req, res) => {
 
 router.get('/adminnoti', (req, res) => {
   res.render('adminnoti', {
-    staff: true,
+    admin: true,
     name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
 });
