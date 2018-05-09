@@ -14,15 +14,15 @@ var User = mongoose.model('accounts');
 
 //Authentication and Authorization Middleware
 //Auth Admin
-var authadmin = function(req, res, next) {
-  console.log(req.session);
-  if (!req.session.user) {
-    res.redirect('login');
-  } else if (req.session.type == 'Admin') {
-    console.log('oooo');
-    return next();
-  }
-};
+// var authadmin = function(req, res, next) {
+//   console.log(req.session);
+//   if (!req.session.user) {
+//     res.redirect('login');
+//   } else if (req.session.type == 'Admin') {
+//     console.log('oooo');
+//     return next();
+//   }
+// };
 
 // {
 //   if (req.session.Type == 'Admin') {
@@ -116,7 +116,7 @@ router.get('/logout', function(req, res) {
  * });
  */
 // After
-router.get('/admin', authadmin, (req, res) => {
+router.get('/admin', (req, res) => {
   console.log(req.session);
   User.find({ Type: 'Driver' }, function(err, docs) {
     res.render('admin', {
