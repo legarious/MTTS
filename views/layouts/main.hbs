@@ -37,19 +37,7 @@
     {{> _navbar}}
     <div class="page-content d-flex align-items-stretch">
       <nav class="side-navbar">
-        {{!-- 
-          ใช้ if เช็คค่าที่ส่งมาตอน render ว่าเป็น user ชนิดไหน
-          ถ้าค่าที่ส่งมาเป็น false, undefined, null, "", 0, หรือ []
-          โค้ดจะไม่รัน
-        --}}
-        {{#if admin}} {{! ถ้า admin มีค่า จะรัน ลองดูในไฟล์ server.js ตรงที่ route ของ admin }}
-          {{> sidebar/_admin}}
-        {{/if}}
-        {{#if staff}}
-          {{> sidebar/_staff}}
-        {{/if}}
-        {{#if guard}}
-          {{> sidebar/_guard}}
+        {{#if admin}} {{> sidebar/_admin}} {{/if}} {{#if staff}} {{> sidebar/_staff}} {{/if}} {{#if guard}} {{> sidebar/_guard}}
         {{/if}}
       </nav>
       <div class="content-inner">

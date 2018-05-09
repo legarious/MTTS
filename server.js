@@ -10,6 +10,7 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var hbs = require('express-handlebars');
 var mongoose = require('mongoose');
+var cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
@@ -40,6 +41,7 @@ app.engine(
 );
 
 app.set('view engine', '.hbs');
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({

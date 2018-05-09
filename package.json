@@ -6,6 +6,7 @@
   "dependencies": {
     "bootstrap": "^4.0.0-alpha.6",
     "connect-mongo": "^2.0.1",
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
     "express-handlebars": "^3.0.0",
     "express-mongoose": "^0.1.0",
@@ -15,6 +16,7 @@
     "hapi-mongodb": "^7.1.0",
     "mongodb": "^3.0.3",
     "mongoose": "^5.0.14",
+    "npm": "^6.0.0",
     "router-express": "^1.5.2",
     "socket.io": "^2.0.4"
   },

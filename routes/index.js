@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
 const session = require('express-session');
+var cookieParser = require('cookie-parser');
 
 var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
 mongoose.connect(url);
@@ -13,37 +14,38 @@ var User = mongoose.model('accounts');
 
 //Authentication and Authorization Middleware
 //Auth Admin
-var authadmin = function(req, res, next) {
-  console.log(req.session);
-  if (req.session.user != undefined) {
-    if (req.session.Type == 'Admin') {
-      console.log('oooo');
-      return next();
-    }
-  } else {
-    res.render('login');
-  }
-};
-//Auth Staff
-var authstaff = function(req, res, next) {
-  if (req.session.user != undefined) {
-    if (req.session.Type == 'Staff') {
-      return next();
-    }
-  } else {
-    res.render('login');
-  }
-};
-//Auth Guard
-var authguard = function(req, res, next) {
-  if (req.session.user != undefined) {
-    if (req.session.Type == 'Guard') {
-      return next();
-    }
-  } else {
-    res.render('login');
-  }
-};
+// var authadmin = function(req, res, next) {
+//   console.log(req.session);
+//   if ((req.session.user = undefined)) {
+//     res.redirect('login');
+//   } else {
+//     if (req.session.Type == 'Admin') {
+//       console.log('oooo');
+//       return next();
+//     }
+//   }
+// };
+
+// //Auth Staff
+// var authstaff = function(req, res, next) {
+//   if ((req.session.user = undefined)) {
+//     res.redirect('login');
+//   } else {
+//     if (req.session.Type == 'Staff') {
+//       return next();
+//     }
+//   }
+// };
+// //Auth Guard
+// var authguard = function(req, res, next) {
+//   if ((req.session.user = undefined)) {
+//     res.render('login');
+//   } else {
+//     if (req.session.Type == 'Guard') {
+//       return next();
+//     }
+//   }
+// };
 
 router.get('/', function(req, res) {
   res.render('login', {
@@ -62,31 +64,36 @@ router.post('/login', function(req, res) {
         console.log('Post from login page---------------------');
         console.log(data);
         //login pass
+        req.session.Firstname = data.Firstname;
         req.session.user = data.ID;
-        console.log(req.session.user);
-        res.cookie('user', data.ID, {
-          maxAge: 3000
-        });
         req.session.type = data.Type;
-        res.cookie('type', data.Type, {
-          maxAge: 3000
+        console.log(req.session.user);
+        res.cookie('user', req.session.ID, {
+          maxAge: 30000
+        });
+        res.cookie('type', req.session.Type, {
+          maxAge: 30000
         });
         console.log(data.Type);
+        console.log('Cookies: ', req.cookies);
         if (data.Type == 'Admin') {
           res.render('admin', {
+            name: req.session.Firstname,
             admin: true
           });
         } else if (data.Type == 'Staff') {
           res.render('staff', {
+            name: req.session.Firstname,
             staff: true
           });
         } else if (data.Type == 'Guard') {
           res.render('guard', {
+            name: req.session.Firstname,
             guard: true
           });
         }
       } else {
-        res.send('not pass');
+        res.render('login');
       }
     });
 });
@@ -103,11 +110,13 @@ router.get('/logout', function(req, res) {
  * });
  */
 // After
-router.get('/admin', authadmin, (req, res) => {
+router.get('/admin', (req, res) => {
+  console.log(req.session);
   User.find({ Type: 'Driver' }, function(err, docs) {
     res.render('admin', {
       user: docs,
-      admin: true
+      admin: true,
+      name: req.session.Firstname
     });
   });
 
@@ -141,65 +150,69 @@ router.get('/admin', authadmin, (req, res) => {
 //   });
 // });
 
-router.get('/adminedit', authadmin, (req, res) => {
+router.get('/adminedit', (req, res) => {
   // var aloha = db.collection('accounts').find({ Type: { $not: /^A.*/ } });
   User.find({}, function(err, docs) {
     res.render('adminedit', {
       user: docs,
-      admin: true
+      staff: true,
+      name: req.session.Firstname
     });
   });
 });
 
-router.get('/adminstat', authadmin, (req, res) => {
+router.get('/adminstat', (req, res) => {
   res.render('adminstat', {
-    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+    staff: true,
+    name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
 });
 
 router.get('/adminbio', (req, res) => {
   res.render('adminbio', {
-    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+    admin: true,
+    name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
 });
 
-router.get('/adminnoti', authadmin, (req, res) => {
+router.get('/adminnoti', (req, res) => {
   res.render('adminnoti', {
-    admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+    staff: true,
+    name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
 });
 //Staff index---------------------------------------------------------
-router.get('/staff', authstaff, (req, res) => {
-  res.render('staff', {
-    staff: true
-  });
-});
+// router.get('/staff', (req, res) => {
+//   res.render('staff', {
+//     staff: true
+//   });
+// });
 
-router.get('/staffbio', (req, res) => {
-  res.render('staffbio', {
-    staff: true
-  });
-});
+// router.get('/staffbio', (req, res) => {
+//   res.render('staffbio', {
+//     staff: true
+//   });
+// });
 
-router.get('/staffnoti', authstaff, (req, res) => {
-  res.render('staffnoti', {
-    staff: true
-  });
-});
+// router.get('/staffnoti', (req, res) => {
+//   res.render('staffnoti', {
+//     staff: true
+//   });
+// });
 
-router.get('/staffmap', authstaff, (req, res) => {
-  res.render('staffmap', {
-    staff: true
-  });
-});
+// router.get('/staffmap', (req, res) => {
+//   res.render('staffmap', {
+//     staff: true
+//   });
+// });
 //Guard index---------------------------------------------------------
-router.get('/guard', authguard, (req, res) => {
+router.get('/guard', (req, res) => {
   res.render('guard', {
     guard: true
   });
 });
 
-router.get('/guardbio', authguard, (req, res) => {
+router.get('/guardbio', (req, res) => {
   res.render('guardbio', {
     guard: true
   });
