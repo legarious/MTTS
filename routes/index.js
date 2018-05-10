@@ -3,6 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 const session = require('express-session');
 var cookieParser = require('cookie-parser');
+var moment = require('moment');
 
 var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
 mongoose.connect(url);
@@ -69,6 +70,7 @@ router.post('/login', function(req, res) {
         console.log('Post from login page---------------------');
         console.log(data);
         //login pass
+        req.session.Data = data;
         req.session.Firstname = data.Firstname;
         req.session.user = data.ID;
         req.session.type = data.Type;
@@ -84,17 +86,17 @@ router.post('/login', function(req, res) {
         if (data.Type == 'Admin') {
           res.render('admin', {
             name: req.session.Firstname,
-            admin: true
+            [req.session.type]: true
           });
         } else if (data.Type == 'Staff') {
           res.render('staff', {
             name: req.session.Firstname,
-            staff: true
+            [req.session.type]: true
           });
         } else if (data.Type == 'Guard') {
           res.render('guard', {
             name: req.session.Firstname,
-            guard: true
+            [req.session.type]: true
           });
         }
       } else {
@@ -121,7 +123,7 @@ router.get('/admin', (req, res) => {
   User.find({ Type: 'Driver' }, function(err, docs) {
     res.render('admin', {
       user: docs,
-      admin: true,
+      [req.session.type]: true,
       name: req.session.Firstname
     });
   });
@@ -161,7 +163,7 @@ router.get('/adminedit', (req, res) => {
   User.find({}, function(err, docs) {
     res.render('adminedit', {
       user: docs,
-      admin: true,
+      [req.session.type]: true,
       name: req.session.Firstname
     });
   });
@@ -169,58 +171,67 @@ router.get('/adminedit', (req, res) => {
 
 router.get('/adminstat', (req, res) => {
   res.render('adminstat', {
-    admin: true,
+    [req.session.type]: true,
     name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
 });
 
 router.get('/adminbio', (req, res) => {
   res.render('adminbio', {
-    admin: true,
-    name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+    [req.session.type]: true,
+    name: req.session.Firstname,
+    userbio: req.session.Data,
+    Hdate: moment(req.session.Data.Hdate).format('DD MMMM YYYY'),
+    Bdate: moment(req.session.Data.BirthDate).format('DD MMMM YYYY') // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
 });
 
 router.get('/adminnoti', (req, res) => {
   res.render('adminnoti', {
-    admin: true,
+    [req.session.type]: true,
     name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
 });
 //Staff index---------------------------------------------------------
-// router.get('/staff', (req, res) => {
-//   res.render('staff', {
-//     staff: true
-//   });
-// });
+router.get('/staff', (req, res) => {
+  res.render('staff', {
+    name: req.session.Firstname,
+    [req.session.type]: true
+  });
+});
 
-// router.get('/staffbio', (req, res) => {
-//   res.render('staffbio', {
-//     staff: true
-//   });
-// });
+router.get('/staffbio', (req, res) => {
+  res.render('staffbio', {
+    name: req.session.Firstname,
+    [req.session.type]: true
+  });
+});
 
-// router.get('/staffnoti', (req, res) => {
-//   res.render('staffnoti', {
-//     staff: true
-//   });
-// });
+router.get('/staffnoti', (req, res) => {
+  res.render('staffnoti', {
+    name: req.session.Firstname,
+    [req.session.type]: true
+  });
+});
 
-// router.get('/staffmap', (req, res) => {
-//   res.render('staffmap', {
-//     staff: true
-//   });
-// });
+router.get('/staffmap', (req, res) => {
+  res.render('staffmap', {
+    name: req.session.Firstname,
+    [req.session.type]: true
+  });
+});
 //Guard index---------------------------------------------------------
 router.get('/guard', (req, res) => {
   res.render('guard', {
-    guard: true
+    name: req.session.Firstname,
+    [req.session.type]: true
   });
 });
 
 router.get('/guardbio', (req, res) => {
   res.render('guardbio', {
-    guard: true
+    name: req.session.Firstname,
+    [req.session.type]: true
   });
 });
 

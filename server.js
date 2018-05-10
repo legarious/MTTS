@@ -80,7 +80,6 @@ io.on('connection', function(socket) {
 //insert data to database
 app.post('/insert', function(req, res) {
   console.log(req.body);
-  // if (err) throw err;
   var newUser = new User({
     Type: req.body.Type,
     Username: req.body.Username,
@@ -94,6 +93,7 @@ app.post('/insert', function(req, res) {
     Age: req.body.Age,
     Sex: req.body.Sex,
     HDate: req.body.HDate,
+    Dept: req.body.Dept,
     POS: req.body.POS,
     HAddress: req.body.HAddress,
     MPhone: req.body.MPhone,
@@ -105,13 +105,33 @@ app.post('/insert', function(req, res) {
     },
     function(err, data) {
       if (data) {
-        res.render('adminedit');
+        User.find({}, function(err, docs) {
+          res.render('adminedit', {
+            user: docs,
+            [req.session.type]: true,
+            name: req.session.Firstname
+          });
+        });
+
         console.log('This ID already exist');
       } else {
-        db.collection('accounts').save(req.body, function(err, data) {
-          res.render('adminedit');
-          console.log('ID Added');
-        });
+        new User(req.body)
+          .save()
+          .then(doc => {
+            User.find({}, function(err, back) {
+              req.session.Alldata = back;
+              res.render('adminedit', {
+                user: back,
+                [req.session.type]: true,
+                name: req.session.Firstname
+              });
+            });
+            console.log('ID Added');
+          })
+          .catch(e => console.log(e));
+        // User.save(req.body, function(err, data) {
+
+        // });
       }
     }
   );
