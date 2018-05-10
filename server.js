@@ -10,14 +10,17 @@ var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var hbs = require('express-handlebars');
 var mongoose = require('mongoose');
+var cookieParser = require('cookie-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+var bodyParser = require('body-parser');
+
 //##############################################################
 //Load mongoose model
 require('./model/User');
 var User = mongoose.model('accounts');
-
 //Load routes
 var index = require('./routes/index');
-
 // Database connect
 var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
 mongoose.connect(url);
@@ -36,8 +39,9 @@ app.engine(
     defaultLayout: 'main'
   })
 );
+
 app.set('view engine', '.hbs');
-var bodyParser = require('body-parser');
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -46,7 +50,16 @@ app.use(
 );
 //express read file in public
 app.use(express.static(__dirname + '/public'));
-
+//session use
+app.use(
+  session({
+    secret: 'PJtheBest',
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: { secure: true }
+  })
+);
 //use routes
 app.use('/', index);
 
@@ -67,7 +80,6 @@ io.on('connection', function(socket) {
 //insert data to database
 app.post('/insert', function(req, res) {
   console.log(req.body);
-  // if (err) throw err;
   var newUser = new User({
     Type: req.body.Type,
     Username: req.body.Username,
@@ -81,6 +93,7 @@ app.post('/insert', function(req, res) {
     Age: req.body.Age,
     Sex: req.body.Sex,
     HDate: req.body.HDate,
+    Dept: req.body.Dept,
     POS: req.body.POS,
     HAddress: req.body.HAddress,
     MPhone: req.body.MPhone,
@@ -92,13 +105,33 @@ app.post('/insert', function(req, res) {
     },
     function(err, data) {
       if (data) {
-        res.redirect('/adminedit');
+        User.find({}, function(err, docs) {
+          res.render('adminedit', {
+            user: docs,
+            [req.session.type]: true,
+            name: req.session.Firstname
+          });
+        });
+
         console.log('This ID already exist');
       } else {
-        db.collection('accounts').save(req.body, function(err, data) {
-          res.redirect('/adminedit');
-          console.log('ID Added');
-        });
+        new User(req.body)
+          .save()
+          .then(doc => {
+            User.find({}, function(err, back) {
+              req.session.Alldata = back;
+              res.render('adminedit', {
+                user: back,
+                [req.session.type]: true,
+                name: req.session.Firstname
+              });
+            });
+            console.log('ID Added');
+          })
+          .catch(e => console.log(e));
+        // User.save(req.body, function(err, data) {
+
+        // });
       }
     }
   );

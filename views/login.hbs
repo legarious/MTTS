@@ -48,16 +48,16 @@
           <div class="col-lg-6 bg-white">
             <div class="form d-flex align-items-center">
               <div class="content">
-                <form id="login-form" method="post" action="http://localhost:3000/form">
+                <form id="login-form" method="post" action="http://localhost:3000/login">
                   <div class="form-group">
-                    <input id="login-username" type="text" name="loginUsername" required="" class="input-material">
+                    <input id="login-username" type="text" required="true" class="input-material" name="loginUsername">
                     <label for="login-username" class="label-material">User Name</label>
                   </div>
                   <div class="form-group">
-                    <input id="login-password" type="password" name="loginPassword" required="" class="input-material">
+                    <input id="login-password" type="password" required="true" class="input-material" name="loginPassword">
                     <label for="login-password" class="label-material">Password</label>
                   </div>
-                  <a id="login" href="#" class="btn btn-primary">Login</a>
+                  <button type="submit" class="btn btn-primary">Login</button>
                   <!-- This should be submit button but I replaced it with <a> for demo purposes-->
                 </form>
                 <a id="forgot" href="#" class="forgot-pass">Forgot Password?</a>
@@ -78,19 +78,7 @@
     <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
     <script src="js/front.js"></script> //Sample login
     <script>
-      $('#login').on('click', function (req, res) {
 
-        if ($('#login-username').val() === 'admin') {
-          window.location = '/admin';
-        } else if ($('#login-username').val() === 'staff') {
-          window.location = '/staff';
-        } else if ($('#login-username').val() === 'guard') {
-          window.location = '/guard';
-        } else {
-          alert("Your Username or Password is wrong..");
-        }
-
-      })
       $('#forgot').on('click', function () {
         alert('Your admin has been inform of your problem.\nBe patience.');
       })    
