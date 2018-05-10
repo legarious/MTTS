@@ -170,7 +170,7 @@ router.get('/adminedit', (req, res) => {
 });
 
 router.post('/edit', (req, res) => {
-  User.update(req.body, function(err, data) {
+  User.update({ ID: req.body.ID }, req.body, function(err, data) {
     res.redirect('back');
   });
 });
