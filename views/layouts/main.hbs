@@ -24,6 +24,7 @@
   <link rel="shortcut icon" href="favicon.png">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css" />
   <!--Import Google Icon Font-->
+
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <!--Import materialize.css-->
 
@@ -42,6 +43,7 @@
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
   <!--Import jQuery before materialize.js-->
+
   <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="js/materialize.min.js"></script>
   <script type="text/javascript"></script>
@@ -66,38 +68,6 @@
         </div>
       </div>
       {{> _footer}}
-    </div>
-    <!-- Javascript files-->
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src="vendor/popper.js/umd/popper.min.js"> </script>
-    <script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-    <script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
-    <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script src="js/charts-home.js"></script>
-    <script src="js/front.js"></script>
-  </body>
-  =======
-
-  <body>
-    <div class="page home-page">
-      {{> _navbar}}
-      <div class="page-content d-flex align-items-stretch">
-        <nav class="side-navbar">
-          {{#if Admin}} {{> sidebar/_admin}} {{/if}} {{#if Staff}} {{> sidebar/_staff}} {{/if}} {{#if Guard}} {{> sidebar/_guard}}
-          {{/if}}
-        </nav>
-        <div class="content-inner">
-          <div class="container33">
-            {{{body}}}
-            <!-- comment -->
-
-            {{!-- body จะถูกแทนที่ด้วยข้อมูลจากไฟล์ .hbs ที่เรา render มาจาก server เช่น app.get('/home', (req, res) => { res.render('home');
-            }) ก็จะเอาไฟล์ home ในใส่เข้าไปใน body --}}
-
-          </div>
-        </div>
-      </div>> {{> _footer}}
     </div>
     <!-- Javascript files-->
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
