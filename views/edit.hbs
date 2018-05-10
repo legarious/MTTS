@@ -4,59 +4,6 @@
         <h2 class="no-margin-bottom">Edit</h2>
     </div>
 </header>
-<div class="tables">
-    <div class="container1">
-        <div class="row">
-            <div class="col">
-                <div class="card">
-                    <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">All Employee</h3>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-light table-sm">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Truck Plate</th>
-                                    <th>Type</th>
-                                    <th>Employee ID</th>
-                                    <th>First Name</th>
-                                    <th>Last Name</th>
-                                    <th>Company</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {{#each user}}
-                                <tr>
-                                    <th scope="row">#</th>
-                                    <th>{{Plate}}</th>
-                                    <th>{{Type}}</th>
-                                    <td>{{ID}}</td>
-                                    <td>{{Firstname}}</td>
-                                    <td>{{Lastname}}</td>
-                                    <td>{{Company}}</td>
-
-                                    <td>
-                                        <a href='/edit?user={{ID}}'>
-                                            <button type="button" class="btn btn-outline-info">EDIT</button>
-                                        </a>
-                                        <a href='/deleteuser?user={{ID}}'>
-                                            <button type="button" class="btn btn-outline-danger">DELETE</button>
-                                        </a>
-                                    </td>
-                                </tr>
-                                {{else}}
-                                <p>Not thing</p>
-                                {{/each}}
-
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 <!-- Edit Form -->
 <section class="forms no-padding-top">
     <div class="container-fluid">
@@ -65,97 +12,98 @@
             <div class="col-lg-12">
                 <div class="card">
                     <div class="card-header d-flex align-items-center">
-                        <h3 class="h4">ADD FORM</h3>
+                        <h3 class="h4">Edit Form</h3>
                     </div>
-                    <form method="post" action="http://localhost:3000/insert">
+                    <form method="post" action="http://localhost:3000/edit">
                         <div class="card-body">
                             <label class="col-sm-3 form-control-label">Account Type</label>
                             <br>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="type">
-                                <label class="btn btn-secondary">
+
+                                <label class="btn btn-secondary admin ">
                                     <input type="radio" name="Type" id="admin" value="Admin" required autocomplete="off"> Admin
                                 </label>
-                                <label class="btn btn-secondary">
+                                <label class="btn btn-secondary staff">
                                     <input type="radio" name="Type" id="staff" value="Staff" required autocomplete="off"> Staff
                                 </label>
-                                <label class="btn btn-secondary">
+                                <label class="btn btn-secondary guard">
                                     <input type="radio" name="Type" id="guard" value="Guard" required autocomplete="off"> Guard
                                 </label>
-                                <label class="btn btn-secondary">
+                                <label class="btn btn-secondary driver">
                                     <input type="radio" name="Type" id="driver" value="Driver" required autocomplete="off"> Driver
                                 </label>
                             </div>
                             <br>
                             <label class="col-sm-3 form-control-label">Username</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="Username">
+                                <input type="text" class="form-control" name="Username" value="{{data.Username}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Password</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="Password">
+                                <input type="text" class="form-control" name="Password" value="{{data.Password}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Company</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="Company" disabled>
+                                <input type="text" class="form-control" name="Company" value="{{data.Company}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Truck Plate</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="Plate" disabled>
+                                <input type="text" class="form-control" name="Plate" value="{{data.Plate}}">
                             </div>
                             <label class="col-sm-3 form-control-label">ID</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="ID">
+                                <input type="text" class="form-control" name="ID" value="{{data.ID}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Firstname</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="Firstname">
+                                <input type="text" class="form-control" name="Firstname" value="{{data.Firstname}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Lastname</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="Lastname">
+                                <input type="text" class="form-control" name="Lastname" value="{{data.Lastname}}">
                             </div>
                             <label class="col-sm-3 form-control-label">BirthDate</label>
                             <div class="col-sm-9">
-                                <input type="text" placeholder="YYYY-MMMM-DD" class="form-control" name="BirthDate">
+                                <input type="text" placeholder="YYYY-MMMM-DD" class="form-control" name="BirthDate" value="{{data.BirthDate}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Age</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="Age">
+                                <input type="text" class="form-control" name="Age" value="{{data.Age}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Sex</label>
                             <br>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons" id="Sex">
-                                <label class="btn btn-secondary">
-                                    <input type="radio" name="Sex" id="Male" value="Male" required autocomplete="off"> Male
+                                <label class="btn btn-secondary male">
+                                    <input type="radio" name="Sex" id="male" value="Male" required autocomplete="off"> Male
                                 </label>
-                                <label class="btn btn-secondary">
-                                    <input type="radio" name="Sex" id="Female" value="Female" required autocomplete="off"> Female
+                                <label class="btn btn-secondary female">
+                                    <input type="radio" name="Sex" id="female" value="Female" required autocomplete="off"> Female
                                 </label>
                             </div>
                             <br>
                             <label class="col-sm-3 form-control-label">Hire Date</label>
                             <div class="col-sm-9">
-                                <input type="text" placeholder="YYYY-MMMM-DD" class="form-control" name="HireDate">
+                                <input type="text" placeholder="YYYY-MMMM-DD" class="form-control" name="HireDate" value="{{data.HireDate}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Department</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="Dept">
+                                <input type="text" class="form-control" name="Dept" value="{{data.Dept}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Position</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="POS">
+                                <input type="text" class="form-control" name="POS" value="{{data.POS}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Home Address</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="HAddress">
+                                <input type="text" class="form-control" name="HAddress" value="{{data.HAddress}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Mobile Phone</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="MPhone">
+                                <input type="text" class="form-control" name="MPhone" value="{{data.MPhone}}">
                             </div>
                             <label class="col-sm-3 form-control-label">Home Number</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="HPhone">
+                                <input type="text" class="form-control" name="HPhone" value="{{data.HPhone}}">
                             </div>
                         </div>
                         <div class="line"></div>
@@ -180,6 +128,29 @@
 <script src="vendor/jquery-validation/jquery.validate.min.js"></script>
 <script src="js/front.js"></script>
 <script>
+    $(document).ready(function () {
+        var type = "{{data.Type}}";
+        var sex = "{{data.Sex}}";
+        sex = sex.toLowerCase();
+        type = type.toLowerCase();
+        $("." + sex).addClass('active');
+        var btn2 = $("#" + sex);
+        console.log(btn2);
+        btn2.prop('checked', true);
+
+        $("." + type).addClass('active');
+        var btn = $("#" + type);
+        console.log(btn);
+        btn.prop('checked', true);
+        if (type === 'driver') {
+            $('input[name=Company]').prop('disabled', false);
+            $('input[name=Plate]').prop('disabled', false);
+        } else {
+            $('input[name=Company]').prop('disabled', true);
+            $('input[name=Plate]').prop('disabled', true);
+        }
+
+    });
     $('#type').on('change', () => {
         console.log($('input[name=Type]:checked').val());
         var type = $('input[name=Type]:checked').val();
