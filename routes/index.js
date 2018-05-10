@@ -169,13 +169,31 @@ router.get('/adminedit', (req, res) => {
   });
 });
 
+router.post('/edit', (req, res) => {
+  User.update({ ID: req.body.ID }, req.body, function(err, data) {
+    res.redirect('back');
+  });
+});
 router.get('/adminstat', (req, res) => {
   res.render('adminstat', {
     [req.session.type]: true,
     name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
 });
+router.get('/deleteuser', (req, res) => {
+  User.remove({ ID: req.query.user }, function(err, data) {
+    res.redirect('back');
+  });
+});
 
+router.get('/edit', (req, res) => {
+  User.findOne({ ID: req.query.user }, function(err, data) {
+    res.render('edit', {
+      [req.session.type]: true,
+      data: data
+    });
+  });
+});
 router.get('/adminbio', (req, res) => {
   res.render('adminbio', {
     [req.session.type]: true,
