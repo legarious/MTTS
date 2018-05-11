@@ -67,14 +67,19 @@ app.use('/', index);
 
 //Update Data
 
-//count people
+//count staff
 io.on('connection', function(socket) {
-  db
-    .collection('accounts')
-    .count({ Type: 'Staff' }, function(err, countpeople) {
-      console.log(countpeople);
-      io.emit('h', countpeople);
-    });
+  User.count({ Type: 'Staff' }, function(err, countpeople) {
+    console.log(countpeople);
+    io.emit('h', countpeople);
+  });
+});
+//count Driver
+io.on('connection', function(socket) {
+  User.count({ Type: 'Driver' }, function(err, countpeople1) {
+    console.log(countpeople1);
+    io.emit('hh', countpeople1);
+  });
 });
 
 //insert data to database

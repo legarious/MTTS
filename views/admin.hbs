@@ -44,7 +44,9 @@
             </div>
           </div>
           <div class="number">
-            <strong>20</strong>
+            <strong id="countpeople1">
+
+            </strong>
           </div>
         </div>
       </div>
@@ -223,6 +225,10 @@
     socket.on('h', function (countpeople) {
       $('#countpeople').html(countpeople);
       console.log(countpeople);
+    });
+    socket.on('hh', function (countpeople1) {
+      $('#countpeople1').html(countpeople1);
+      console.log(countpeople1);
     });
   })();
 </script>

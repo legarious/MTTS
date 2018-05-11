@@ -127,13 +127,6 @@ router.get('/admin', (req, res) => {
       name: req.session.Firstname
     });
   });
-
-  // User.find({ Type: 'Driver' }).then(user => {
-  //   res.render('admin', {
-  //     user,
-  //     admin: true
-  //   });
-  // });
 });
 
 /**
@@ -190,7 +183,9 @@ router.get('/edit', (req, res) => {
   User.findOne({ ID: req.query.user }, function(err, data) {
     res.render('edit', {
       [req.session.type]: true,
-      data: data
+      data: data,
+      date1: moment(data.BirthDate).format('DD MMMM YYYY'),
+      date2: moment(data.HireDate).format('DD MMMM YYYY')
     });
   });
 });
@@ -199,6 +194,7 @@ router.get('/adminbio', (req, res) => {
     [req.session.type]: true,
     name: req.session.Firstname,
     userbio: req.session.Data,
+    name: req.session.Firstname,
     Hdate: moment(req.session.Data.Hdate).format('DD MMMM YYYY'),
     Bdate: moment(req.session.Data.BirthDate).format('DD MMMM YYYY') // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
   });
