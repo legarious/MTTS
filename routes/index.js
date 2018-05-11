@@ -83,6 +83,7 @@ router.post('/login', function(req, res) {
         });
         console.log(data.Type);
         console.log('Cookies: ', req.cookies);
+        console.log(req.session);
         if (data.Type == 'Admin') {
           res.render('admin', {
             name: req.session.Firstname,
@@ -242,6 +243,7 @@ router.get('/staffmap', (req, res) => {
 });
 //Guard index---------------------------------------------------------
 router.get('/guard', (req, res) => {
+  console.log(req.session);
   res.render('guard', {
     name: req.session.Firstname,
     [req.session.type]: true
