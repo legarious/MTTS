@@ -100,7 +100,7 @@ router.post('/login', function(req, res) {
           });
         }
       } else {
-        res.render('login');
+        res.redirect('back');
       }
     });
 });
@@ -150,6 +150,12 @@ router.get('/admin', (req, res) => {
 //     admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
 //   });
 // });
+router.get('/snapshot', (req, res) => {
+  res.render('snapshot', {
+    [req.session.type]: true,
+    name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+  });
+});
 
 router.get('/adminedit', (req, res) => {
   // var aloha = db.collection('accounts').find({ Type: { $not: /^A.*/ } });
