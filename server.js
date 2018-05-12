@@ -1,26 +1,37 @@
 /*eslint no-undef: "error"*/
 /*eslint-env node*/
-
 var http = require('http');
 var express = require('express');
+var router = express.Router();
 var app = express();
 var server = http.createServer(app);
 var io = require('socket.io').listen(server);
 var MongoClient = require('mongodb').MongoClient;
 var assert = require('assert');
 var hbs = require('express-handlebars');
-//##############################################################
+var mongoose = require('mongoose');
+var cookieParser = require('cookie-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+var bodyParser = require('body-parser');
 
+//##############################################################
+//Load mongoose model
+require('./model/User');
+var User = mongoose.model('accounts');
+//Load routes
+var index = require('./routes/index');
 // Database connect
 var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
-MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
-  console.log('Database Created!');
-  db.close;
+mongoose.connect(url);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log('Database connect successfully!!');
 });
 
 dbName = 'mtts';
-//for insert data to mongodb
+//Handlebars middleware
 app.engine(
   '.hbs',
   hbs({
@@ -28,8 +39,9 @@ app.engine(
     defaultLayout: 'main'
   })
 );
+
 app.set('view engine', '.hbs');
-var bodyParser = require('body-parser');
+app.use(cookieParser());
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -38,54 +50,35 @@ app.use(
 );
 //express read file in public
 app.use(express.static(__dirname + '/public'));
-// route redirect to login
-app.get('/', function(req, res) {
-  res.render('login');
-});
+//session use
+app.use(
+  session({
+    secret: 'PJtheBest',
+    resave: false,
+    saveUninitialized: true,
+    store: new MongoStore({ mongooseConnection: mongoose.connection }),
+    cookie: { secure: true }
+  })
+);
+//use routes
+app.use('/', index);
 
 //Get Data
 
 //Update Data
 
+//count staff
 io.on('connection', function(socket) {
-  var countpeople;
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db(dbName);
-    dbo
-      .collection('accounts')
-      .count({ Type: 'Staff' })
-      .then(function(countpeople) {
-        console.log(countpeople);
-        io.emit('h', countpeople);
-        db.close();
-      });
+  User.count({ Type: 'Staff' }, function(err, countpeople) {
+    console.log(countpeople);
+    io.emit('h', countpeople);
   });
 });
-
-//insert from AdminEdit
-app.post('/insert', function(req, res) {
-  console.log(req.body);
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var dbo = db.db(dbName);
-    var myobj = req.body;
-    var Type = req.body.Type;
-    var accounts = dbo.collection('accounts');
-
-    dbo
-      .collection('accounts')
-      .findOne({ ID: req.body.ID }, function(err, data) {
-        if (data) {
-          res.redirect('/AdminEdit.html');
-          console.log('This ID already exist');
-        } else {
-          dbo.collection('accounts').save(req.body, function(err2, data2) {
-            res.redirect('/AdminEdit.html');
-            console.log('ID Added');
-          });
-        }
-      });
+//count Driver
+io.on('connection', function(socket) {
+  User.count({ Type: 'Driver' }, function(err, countpeople1) {
+    console.log(countpeople1);
+    io.emit('hh', countpeople1);
   });
 });
 
@@ -93,7 +86,7 @@ app.post('/insert', function(req, res) {
 app.use(function(req, res) {
   res.status(404).send("Sorry, that route doesn't exist.");
 });
-// send 'hello' to road A
+// People online in the system
 var online = 0;
 io.on('connection', function(socket) {
   online = online + 1;

@@ -1,0 +1,116 @@
+<header class="page-header">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Employee Information</h2>
+    </div>
+</header>
+<!-- Updates Section                                                -->
+<section class="updates container-fluid1" style="padding-bottom: 0">
+    <div class="container-fluid">
+        <div class="row-lg-6">
+            <!-- Daily Feeds -->
+            <div class="col-lg-6  col-lg-12">
+                <div class="daily-feeds card">
+                    <div class="card-close">
+                        <div class="dropdown">
+                            <button type="button" id="closeCard7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="dropdown-toggle">
+                                <i class="fa fa-ellipsis-v"></i>
+                            </button>
+                            <div aria-labelledby="closeCard7" class="dropdown-menu dropdown-menu-right has-shadow">
+                                <a href="#" class="dropdown-item edit">
+                                    <i class="fa fa-gear"></i>Edit</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <h3 class="h4">Personal Information</h3>
+                    </div>
+                    <!--Personal Information                           -->
+                    <div class="item">
+                        <div class="feed d-flex justify-content-between">
+                            <div class="col-9 card">
+                                <div class="feed-body d-flex card-body">
+                                    <a href="#" class="feed-profile">
+                                        <img src="img/avatar-6.jpg" alt="person" class="img-fluid">
+                                    </a>
+                                    <div class="content card-body" style="padding-left:10px">
+                                        <h1>
+                                            <font color="black">{{userbio.Firstname}} {{userbio.Lastname}}</font>
+                                        </h1>
+                                        <span>
+                                            <strong id="name1">
+                                                <font color="black">Department:</font>
+                                            </strong>&nbsp;{{userbio.Dept}}</span>
+                                        <br>
+                                        <span>
+                                            <strong>
+                                                <font color="black">Employee ID:</font>
+                                            </strong>&nbsp;{{userbio.ID}}</span>
+                                        <br>
+                                        <span>
+                                            <strong>
+                                                <font color="black">Birth date:</font>
+                                            </strong>{{Bdate}}</span>
+                                        <br>
+                                        <span>
+                                            <strong>
+                                                <font color="black">Age:</font>
+                                            </strong>{{userbio.Age}}</span>
+                                        <br>
+                                        <span>
+                                            <strong>
+                                                <font color="black">Sex:</font>
+                                            </strong>{{userbio.Sex}}</span>
+                                        <br>
+                                        <span>
+                                            <strong>
+                                                <font color="black">Hire date:</font>
+                                            </strong>{{Hdate}}</span>
+                                        <br>
+                                        <span>
+                                            <strong>
+                                                <font color="black">Position:</font>
+                                            </strong>{{userbio.POS}}</span>
+                                        <br>
+                                        <span>
+                                            <strong>
+                                                <font color="black">Home Address:</font>
+                                            </strong> {{userbio.HAddress}}</span>
+                                        <br>
+                                        <span>
+                                            <strong>
+                                                <font color="black">Home Phone:</font>
+                                            </strong> 027894126</span>
+                                        <br>
+                                        <span>
+                                            <strong>
+                                                <font color="black">Mobile Phone:</font>
+                                            </strong>{{userbio.MPhone}}</span>
+                                        <br>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Work Hour                           -->
+                            <div class="chart col-3">
+                                <div class="work-amount card">
+                                    <div class="card-body">
+                                        <h3>Work Hours</h3>
+                                        <small>This Month</small>
+                                        <div class="chart text-center">
+                                            <div class="text">
+                                                <strong>97</strong>
+                                                <br>
+                                                <span>Hours</span>
+                                            </div>
+                                            <canvas id="pieChart"></canvas>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

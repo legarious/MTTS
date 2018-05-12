@@ -1,0 +1,194 @@
+<!-- Page Header-->
+<header class="page-header">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Edit</h2>
+    </div>
+</header>
+<div class="tables">
+    <div class="container1">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h4">All Employee</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-light table-sm">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Truck Plate</th>
+                                    <th>Type</th>
+                                    <th>Employee ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Company</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{#each user}}
+                                <tr>
+                                    <th scope="row">#</th>
+                                    <th>{{Plate}}</th>
+                                    <th>{{Type}}</th>
+                                    <td>{{ID}}</td>
+                                    <td>{{Firstname}}</td>
+                                    <td>{{Lastname}}</td>
+                                    <td>{{Company}}</td>
+
+                                    <td>
+                                        <a href='/edit?user={{ID}}'>
+                                            <button type="button" class="btn btn-outline-info">EDIT</button>
+                                        </a>
+                                        <a href='/deleteuser?user={{ID}}'>
+                                            <button type="button" class="btn btn-outline-danger">DELETE</button>
+                                        </a>
+                                    </td>
+                                </tr>
+                                {{else}}
+                                <p>Not thing</p>
+                                {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Edit Form -->
+<section class="forms no-padding-top">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Horizontal Form-->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <h3 class="h4">ADD FORM</h3>
+                    </div>
+                    <form method="post" action="http://localhost:3000/insert">
+                        <div class="card-body">
+                            <label class="col-sm-3 form-control-label">Account Type</label>
+                            <br>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="type">
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="Type" id="admin" value="Admin" required autocomplete="off"> Admin
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="Type" id="staff" value="Staff" required autocomplete="off"> Staff
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="Type" id="guard" value="Guard" required autocomplete="off"> Guard
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="Type" id="driver" value="Driver" required autocomplete="off"> Driver
+                                </label>
+                            </div>
+                            <br>
+                            <label class="col-sm-3 form-control-label">Username</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="Username">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Password</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="Password">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Company</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="Company" disabled>
+                            </div>
+                            <label class="col-sm-3 form-control-label">Truck Plate</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="Plate" disabled>
+                            </div>
+                            <label class="col-sm-3 form-control-label">ID</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="ID">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Firstname</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="Firstname">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Lastname</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="Lastname">
+                            </div>
+                            <label class="col-sm-3 form-control-label">BirthDate</label>
+                            <div class="col-sm-9">
+                                <input type="text" placeholder="YYYY-MMMM-DD" class="form-control" name="BirthDate">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Age</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="Age">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Sex</label>
+                            <br>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="Sex">
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="Sex" id="Male" value="Male" required autocomplete="off"> Male
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="Sex" id="Female" value="Female" required autocomplete="off"> Female
+                                </label>
+                            </div>
+                            <br>
+                            <label class="col-sm-3 form-control-label">Hire Date</label>
+                            <div class="col-sm-9">
+                                <input type="text" placeholder="YYYY-MMMM-DD" class="form-control" name="HireDate">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Department</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="Dept">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Position</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="POS">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Home Address</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="HAddress">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Mobile Phone</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="MPhone">
+                            </div>
+                            <label class="col-sm-3 form-control-label">Home Number</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="HPhone">
+                            </div>
+                        </div>
+                        <div class="line"></div>
+                        <div class="form-group row">
+                            <div class="col-sm-4 offset-sm-3">
+                                <button type="Submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Javascript files-->
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src="vendor/popper.js/umd/popper.min.js"> </script>
+<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="vendor/jquery.cookie/jquery.cookie.js"> </script>
+<script src="vendor/jquery-validation/jquery.validate.min.js"></script>
+<script src="js/front.js"></script>
+<script>
+    $('#type').on('change', () => {
+        console.log($('input[name=Type]:checked').val());
+        var type = $('input[name=Type]:checked').val();
+        if (type === 'Driver') {
+            $('input[name=Company]').prop('disabled', false);
+            $('input[name=Plate]').prop('disabled', false);
+        } else {
+            $('input[name=Company]').prop('disabled', true);
+            $('input[name=Plate]').prop('disabled', true);
+        }
+    })
+</script>
