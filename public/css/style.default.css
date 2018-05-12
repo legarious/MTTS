@@ -3115,3 +3115,146 @@ a.text-dark:hover {
   width: 120%;
   background-color: white;
 }
+nav .input-field {
+  margin: 0;
+  height: 100%;
+}
+
+nav .input-field input {
+  height: 100%;
+  font-size: 1.2rem;
+  border: none;
+  padding-left: 2rem;
+}
+
+nav .input-field input:focus,
+nav .input-field input[type='text']:valid,
+nav .input-field input[type='password']:valid,
+nav .input-field input[type='email']:valid,
+nav .input-field input[type='url']:valid,
+nav .input-field input[type='date']:valid {
+  border: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+nav .input-field label {
+  top: 0;
+  left: 0;
+}
+
+nav .input-field label i {
+  color: rgba(255, 255, 255, 0.7);
+  -webkit-transition: color 0.3s;
+  transition: color 0.3s;
+}
+
+nav .input-field label.active i {
+  color: #fff;
+}
+.input-field.col .dropdown-content [type='checkbox'] + label {
+  top: 1px;
+  left: 0;
+  height: 18px;
+}
+.input-field label:not(.label-icon).active {
+  -webkit-transform: translateY(-14px) scale(0.8);
+  transform: translateY(-14px) scale(0.8);
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+}
+
+.input-field .prefix {
+  position: absolute;
+  width: 3rem;
+  font-size: 2rem;
+  -webkit-transition: color 0.2s;
+  transition: color 0.2s;
+}
+
+.input-field .prefix.active {
+  color: #26a69a;
+}
+
+.input-field .prefix ~ input,
+.input-field .prefix ~ textarea,
+.input-field .prefix ~ label,
+.input-field .prefix ~ .validate ~ label,
+.input-field .prefix ~ .autocomplete-content {
+  margin-left: 3rem;
+  width: 92%;
+  width: calc(100% - 3rem);
+}
+
+.input-field .prefix ~ label {
+  margin-left: 3rem;
+}
+
+@media only screen and (max-width: 992px) {
+  .input-field .prefix ~ input {
+    width: 86%;
+    width: calc(100% - 3rem);
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .input-field .prefix ~ input {
+    width: 80%;
+    width: calc(100% - 3rem);
+  }
+}
+
+/* Search Field */
+.input-field input[type='search'] {
+  display: block;
+  line-height: inherit;
+}
+
+.nav-wrapper .input-field input[type='search'] {
+  height: inherit;
+  padding-left: 4rem;
+  width: calc(100% - 4rem);
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.input-field input[type='search']:focus {
+  background-color: #fff;
+  border: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: #444;
+}
+
+.input-field input[type='search']:focus + label i,
+.input-field input[type='search']:focus ~ .mdi-navigation-close,
+.input-field input[type='search']:focus ~ .material-icons {
+  color: #444;
+}
+
+.input-field input[type='search'] + label {
+  left: 1rem;
+}
+
+.input-field input[type='search'] ~ .mdi-navigation-close,
+.input-field input[type='search'] ~ .material-icons {
+  position: absolute;
+  top: 0;
+  right: 1rem;
+  color: transparent;
+  cursor: pointer;
+  font-size: 2rem;
+  -webkit-transition: 0.3s color;
+  transition: 0.3s color;
+}
+.input-field > select {
+  display: block;
+  position: absolute;
+  width: 0;
+  pointer-events: none;
+  height: 0;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
