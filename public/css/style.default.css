@@ -54,6 +54,17 @@ canvas {
 .container-fluid {
   padding: 0 30px;
 }
+.container-fluidnoti{
+  padding: 0 30px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05), 0 3px 10px 0 rgba(0, 0, 0, 0.05);
+}
+.container-fluid55 {
+  padding: 0 30px;
+  -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
+    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+}
+
 
 @media (max-width: 575px) {
   .container-fluid {
@@ -63,6 +74,7 @@ canvas {
 
 header.page-header {
   padding: 20px 0;
+  width: 100%
 }
 
 table {
@@ -858,7 +870,7 @@ nav.navbar .dropdown-menu h3 {
     /*==== Toggle Sidebar Btn ====*/
   }
   nav.navbar .navbar-brand .brand-small {
-    display: block !important;
+    display: block ;
   }
   nav.navbar .brand-big {
     display: none;
@@ -3091,6 +3103,10 @@ a.text-dark:hover {
   padding-left: 30px;
   padding-right: 30px;
 }
+.container-fluidsnap {
+  padding-right: 0px;
+  height: 100%;
+}
 .container-fluid1 {
   padding-right: 0px;
 }
@@ -3112,6 +3128,7 @@ a.text-dark:hover {
 .container33 {
   padding-top: 70px;
   padding-left: 300px;
+  padding-right: 80px;
   width: 120%;
   background-color: white;
 }

@@ -12,6 +12,62 @@ var db = mongoose.connection;
 //Load mongoose model
 require('../model/User');
 var User = mongoose.model('accounts');
+//insert data to database
+router.post('/insert', function(req, res) {
+  console.log(req.body);
+  var newUser = new User({
+    Type: req.body.Type,
+    Username: req.body.Username,
+    Password: req.body.Password,
+    Company: req.body.Company,
+    Plate: req.body.Plate,
+    ID: req.body.ID,
+    Firstname: req.body.Firstname,
+    Lastname: req.body.Lastname,
+    BirthDate: req.body.BirthDate,
+    Age: req.body.Age,
+    Sex: req.body.Sex,
+    HDate: req.body.HDate,
+    Dept: req.body.Dept,
+    POS: req.body.POS,
+    HAddress: req.body.HAddress,
+    MPhone: req.body.MPhone,
+    HPhone: req.body.HPhone
+  });
+  db.collection('accounts').findOne(
+    {
+      ID: req.body.ID
+    },
+    function(err, data) {
+      if (data) {
+        User.find({}, function(err, docs) {
+          res.render('adminedit', {
+            user: docs,
+            [req.session.type]: true,
+            name: req.session.Firstname
+          });
+        });
+
+        console.log('This ID already exist');
+      } else {
+        new User(req.body)
+          .save()
+          .then(doc => {
+            User.find({}, function(err, back) {
+              req.session.Alldata = back;
+              res.render('adminedit', {
+                user: back,
+                [req.session.type]: true,
+                name: req.session.Firstname
+              });
+            });
+            console.log('ID Added');
+          })
+          .catch(e => console.log(e));
+      }
+    }
+  );
+});
 
 //Authentication and Authorization Middleware
 //Auth Admin
@@ -112,13 +168,6 @@ router.get('/logout', function(req, res) {
   });
 });
 //Admin index---------------------------------------
-
-/** Before
- * app.get('/admin', (req, res) => {
- *   res.render('adminhome'); <- ก่อนหน้านี้เราไม่ได้ส่งค่าไป
- * });
- */
-// After
 router.get('/admin', (req, res) => {
   console.log(req.session);
   User.find({ Type: 'Driver' }, function(err, docs) {
@@ -146,20 +195,14 @@ router.get('/admin', (req, res) => {
  *  7    <p>Staff</p>
  *  8 </div>
  */
-// router.get('/adminedit', (req, res) => {
-//   res.render('adminedit', {
-//     admin: 'Pojop P.' // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
-//   });
-// });
 router.get('/snapshot', (req, res) => {
   res.render('snapshot', {
     [req.session.type]: true,
-    name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+    name: req.session.Firstname
   });
 });
 
 router.get('/adminedit', (req, res) => {
-  // var aloha = db.collection('accounts').find({ Type: { $not: /^A.*/ } });
   User.find({}, function(err, docs) {
     res.render('adminedit', {
       user: docs,
@@ -168,7 +211,6 @@ router.get('/adminedit', (req, res) => {
     });
   });
 });
-
 router.post('/edit', (req, res) => {
   User.update({ ID: req.body.ID }, req.body, function(err, data) {
     res.redirect('back');
@@ -177,15 +219,20 @@ router.post('/edit', (req, res) => {
 router.get('/adminstat', (req, res) => {
   res.render('adminstat', {
     [req.session.type]: true,
-    name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+    name: req.session.Firstname
   });
 });
 router.get('/deleteuser', (req, res) => {
   User.remove({ ID: req.query.user }, function(err, data) {
-    res.redirect('back');
+    User.find({}, function(err, docs) {
+      res.render('adminedit', {
+        user: docs,
+        [req.session.type]: true,
+        name: req.session.Firstname
+      });
+    });
   });
 });
-
 router.get('/edit', (req, res) => {
   User.findOne({ ID: req.query.user }, function(err, data) {
     res.render('edit', {
@@ -203,14 +250,13 @@ router.get('/adminbio', (req, res) => {
     userbio: req.session.Data,
     name: req.session.Firstname,
     Hdate: moment(req.session.Data.Hdate).format('DD MMMM YYYY'),
-    Bdate: moment(req.session.Data.BirthDate).format('DD MMMM YYYY') // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+    Bdate: moment(req.session.Data.BirthDate).format('DD MMMM YYYY')
   });
 });
-
 router.get('/adminnoti', (req, res) => {
   res.render('adminnoti', {
     [req.session.type]: true,
-    name: req.session.Firstname // ลองเข้าไปดู Line: 7 ใน sidebar/_admin.hbs
+    name: req.session.Firstname
   });
 });
 //Staff index---------------------------------------------------------

@@ -82,66 +82,6 @@ io.on('connection', function(socket) {
   });
 });
 
-//insert data to database
-app.post('/insert', function(req, res) {
-  console.log(req.body);
-  var newUser = new User({
-    Type: req.body.Type,
-    Username: req.body.Username,
-    Password: req.body.Password,
-    Company: req.body.Company,
-    Plate: req.body.Plate,
-    ID: req.body.ID,
-    Firstname: req.body.Firstname,
-    Lastname: req.body.Lastname,
-    BirthDate: req.body.BirthDate,
-    Age: req.body.Age,
-    Sex: req.body.Sex,
-    HDate: req.body.HDate,
-    Dept: req.body.Dept,
-    POS: req.body.POS,
-    HAddress: req.body.HAddress,
-    MPhone: req.body.MPhone,
-    HPhone: req.body.HPhone
-  });
-  db.collection('accounts').findOne(
-    {
-      ID: req.body.ID
-    },
-    function(err, data) {
-      if (data) {
-        User.find({}, function(err, docs) {
-          res.render('adminedit', {
-            user: docs,
-            [req.session.type]: true,
-            name: req.session.Firstname
-          });
-        });
-
-        console.log('This ID already exist');
-      } else {
-        new User(req.body)
-          .save()
-          .then(doc => {
-            User.find({}, function(err, back) {
-              req.session.Alldata = back;
-              res.render('adminedit', {
-                user: back,
-                [req.session.type]: true,
-                name: req.session.Firstname
-              });
-            });
-            console.log('ID Added');
-          })
-          .catch(e => console.log(e));
-        // User.save(req.body, function(err, data) {
-
-        // });
-      }
-    }
-  );
-});
-
 // Change the 404 message modifing the middleware
 app.use(function(req, res) {
   res.status(404).send("Sorry, that route doesn't exist.");
