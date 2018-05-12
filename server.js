@@ -140,14 +140,16 @@ server.listen(3000, function() {
 });
 
 const random = (x, y) => {
+  console.log(Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`));
+  console.log(Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`));
   return {
-    x: Number(`${x}.${Math.floor(Math.random() * 1000000 + 1)}`),
-    y: Number(`${y}.${Math.floor(Math.random() * 1000000 + 1)}`)
+    x: Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`),
+    y: Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`)
   };
 };
 //Fake Coordinate X and Y
 (function loop() {
   setInterval(function() {
-    io.emit('c', random(14, 100));
+    io.emit('c', random(14.061, 100.601));
   }, 1090);
 })();
