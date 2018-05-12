@@ -53,7 +53,10 @@ canvas {
 
 .container-fluid {
   padding: 0 30px;
-  
+}
+.container-fluidnoti{
+  padding: 0 30px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05), 0 3px 10px 0 rgba(0, 0, 0, 0.05);
 }
 .container-fluid55 {
   padding: 0 30px;
@@ -71,6 +74,7 @@ canvas {
 
 header.page-header {
   padding: 20px 0;
+  width: 100%
 }
 
 table {
@@ -866,7 +870,7 @@ nav.navbar .dropdown-menu h3 {
     /*==== Toggle Sidebar Btn ====*/
   }
   nav.navbar .navbar-brand .brand-small {
-    display: block !important;
+    display: block ;
   }
   nav.navbar .brand-big {
     display: none;
@@ -3098,6 +3102,10 @@ a.text-dark:hover {
 .container2 {
   padding-left: 30px;
   padding-right: 30px;
+}
+.container-fluidsnap {
+  padding-right: 0px;
+  height: 100%;
 }
 .container-fluid1 {
   padding-right: 0px;
