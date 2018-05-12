@@ -4,6 +4,7 @@ var mongoose = require('mongoose');
 const session = require('express-session');
 var cookieParser = require('cookie-parser');
 var moment = require('moment');
+var passport = require('passport');
 
 var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
 mongoose.connect(url);
@@ -41,10 +42,10 @@ router.post('/insert', function(req, res) {
     function(err, data) {
       if (data) {
         User.find({}, function(err, docs) {
-          res.render('adminedit', {
+          res.redirect('adminedit', {
             user: docs,
-            [req.session.type]: true,
-            name: req.session.Firstname
+            [req.user.Type]: true,
+            name: req.user.Firstname
           });
         });
 
@@ -57,8 +58,8 @@ router.post('/insert', function(req, res) {
               req.session.Alldata = back;
               res.render('adminedit', {
                 user: back,
-                [req.session.type]: true,
-                name: req.session.Firstname
+                [req.user.Type]: true,
+                name: req.user.Firstname
               });
             });
             console.log('ID Added');
@@ -75,7 +76,7 @@ router.post('/insert', function(req, res) {
 //   console.log(req.session);
 //   if (!req.session.user) {
 //     res.redirect('login');
-//   } else if (req.session.type == 'Admin') {
+//   } else if (req.session.T == 'Admin') {
 //     console.log('oooo');
 //     return next();
 //   }
@@ -114,67 +115,95 @@ router.get('/', function(req, res) {
     layout: false
   });
 });
-
-router.post('/login', function(req, res) {
-  //console.log(req.body);
-  var user = req.body.loginUsername;
-  var pass = req.body.loginPassword;
-  db
-    .collection('accounts')
-    .findOne({ Username: user, Password: pass }, function(err, data) {
-      if (data) {
-        console.log('Post from login page---------------------');
-        console.log(data);
-        //login pass
-        req.session.Data = data;
-        req.session.Firstname = data.Firstname;
-        req.session.user = data.ID;
-        req.session.type = data.Type;
-        console.log(req.session.user);
-        res.cookie('user', req.session.ID, {
-          maxAge: 30000
-        });
-        res.cookie('type', req.session.Type, {
-          maxAge: 30000
-        });
-        console.log(data.Type);
-        console.log('Cookies: ', req.cookies);
-        console.log(req.session);
-        if (data.Type == 'Admin') {
-          res.render('admin', {
-            name: req.session.Firstname,
-            [req.session.type]: true
-          });
-        } else if (data.Type == 'Staff') {
-          res.render('staff', {
-            name: req.session.Firstname,
-            [req.session.type]: true
-          });
-        } else if (data.Type == 'Guard') {
-          res.render('guard', {
-            name: req.session.Firstname,
-            [req.session.type]: true
-          });
-        }
-      } else {
-        res.redirect('back');
+router.post('/newsadd', function(req, res) {
+  console.log(req.body);
+  db.collection('addmessage').save(req.body);
+  res.redirect('/adminnoti');
+});
+router.post('/login', (req, res, next) => {
+  console.log(req.body);
+  User.findOne({ Username: req.body.username })
+    .then(user => {
+      if (user.Type === 'Admin') {
+        passport.authenticate('local', {
+          successRedirect: '/admin',
+          failureRedirect: '/'
+        })(req, res, next);
+      } else if (user.Type === 'Staff') {
+        passport.authenticate('local', {
+          successRedirect: '/staff',
+          failureRedirect: '/'
+        })(req, res, next);
+      } else if (user.Type === 'Guard') {
+        passport.authenticate('local', {
+          successRedirect: '/guard',
+          failureRedirect: '/'
+        })(req, res, next);
       }
+    })
+    .catch(e => {
+      console.log(e);
+      res.redirect('/');
     });
 });
+// router.post('/login', function(req, res) {
+//   //console.log(req.body);
+//   var user = req.body.loginUsername;
+//   var pass = req.body.loginPassword;
+//   db
+//     .collection('accounts')
+//     .findOne({ Username: user, Password: pass }, function(err, data) {
+//       if (data) {
+//         console.log('Post from login page---------------------');
+//         console.log(data);
+//         //login pass
+//         req.session.Data = data;
+//         req.session.Firstname = data.Firstname;
+//         req.session.user = data.ID;
+//         req.session.T = data.Type;
+//         console.log(req.session.user);
+//         res.cookie('user', req.session.ID, {
+//           maxAge: 30000
+//         });
+//         res.cookie('type', req.session.Type, {
+//           maxAge: 30000
+//         });
+//         console.log(data.Type);
+//         console.log('Cookies: ', req.cookies);
+//         console.log(req.session);
+//         if (data.Type == 'Admin') {
+//           res.render('admin', {
+//             name: req.session.Firstname,
+//             [req.session.type]: true
+//           });
+//         } else if (data.Type == 'Staff') {
+//           res.render('staff', {
+//             name: req.session.Firstname,
+//             [req.session.type]: true
+//           });
+//         } else if (data.Type == 'Guard') {
+//           res.render('guard', {
+//             name: req.session.Firstname,
+//             [req.session.type]: true
+//           });
+//         }
+//       } else {
+//         res.render('login');
+//       }
+//     });
+// });
 router.get('/logout', function(req, res) {
-  req.session.destroy();
-  res.render('login', {
-    layout: false
-  });
+  req.logout();
+  res.redirect('/');
 });
 //Admin index---------------------------------------
 router.get('/admin', (req, res) => {
-  console.log(req.session);
+  console.log(req);
   User.find({ Type: 'Driver' }, function(err, docs) {
     res.render('admin', {
       user: docs,
-      [req.session.type]: true,
-      name: req.session.Firstname
+      [req.user.Type]: true,
+      name: req.user.Firstname
     });
   });
 });
@@ -197,8 +226,8 @@ router.get('/admin', (req, res) => {
  */
 router.get('/snapshot', (req, res) => {
   res.render('snapshot', {
-    [req.session.type]: true,
-    name: req.session.Firstname
+    [req.user.Type]: true,
+    name: req.user.Firstname
   });
 });
 
@@ -206,8 +235,8 @@ router.get('/adminedit', (req, res) => {
   User.find({}, function(err, docs) {
     res.render('adminedit', {
       user: docs,
-      [req.session.type]: true,
-      name: req.session.Firstname
+      [req.user.Type]: true,
+      name: req.user.Firstname
     });
   });
 });
@@ -218,8 +247,8 @@ router.post('/edit', (req, res) => {
 });
 router.get('/adminstat', (req, res) => {
   res.render('adminstat', {
-    [req.session.type]: true,
-    name: req.session.Firstname
+    [req.user.Type]: true,
+    name: req.user.Firstname
   });
 });
 router.get('/deleteuser', (req, res) => {
@@ -227,8 +256,8 @@ router.get('/deleteuser', (req, res) => {
     User.find({}, function(err, docs) {
       res.render('adminedit', {
         user: docs,
-        [req.session.type]: true,
-        name: req.session.Firstname
+        [req.user.Type]: true,
+        name: req.user.Firstname
       });
     });
   });
@@ -236,7 +265,7 @@ router.get('/deleteuser', (req, res) => {
 router.get('/edit', (req, res) => {
   User.findOne({ ID: req.query.user }, function(err, data) {
     res.render('edit', {
-      [req.session.type]: true,
+      [req.user.Type]: true,
       data: data,
       date1: moment(data.BirthDate).format('DD MMMM YYYY'),
       date2: moment(data.HireDate).format('DD MMMM YYYY')
@@ -244,62 +273,72 @@ router.get('/edit', (req, res) => {
   });
 });
 router.get('/adminbio', (req, res) => {
+  console.log(req.user);
   res.render('adminbio', {
-    [req.session.type]: true,
-    name: req.session.Firstname,
-    userbio: req.session.Data,
-    name: req.session.Firstname,
-    Hdate: moment(req.session.Data.Hdate).format('DD MMMM YYYY'),
-    Bdate: moment(req.session.Data.BirthDate).format('DD MMMM YYYY')
+    [req.user.Type]: true,
+    name: req.user.Firstname,
+    userbio: req.user,
+    name: req.user.Firstname,
+    Hdate: moment(req.user.HDate).format('DD MMMM YYYY'),
+    Bdate: moment(req.user.BirthDate).format('DD MMMM YYYY')
   });
 });
 router.get('/adminnoti', (req, res) => {
-  res.render('adminnoti', {
-    [req.session.type]: true,
-    name: req.session.Firstname
-  });
+  db
+    .collection('addmessage')
+    .find()
+    .sort([['_id', -1]])
+    .limit(5)
+    .toArray(function(err, data) {
+      console.log(data);
+      res.render('adminnoti', {
+        [req.user.Type]: true,
+        name: req.user.Firstname,
+        msg: data
+      });
+    });
 });
 //Staff index---------------------------------------------------------
 router.get('/staff', (req, res) => {
   res.render('staff', {
-    name: req.session.Firstname,
-    [req.session.type]: true
+    name: req.user.Firstname,
+    [req.user.Type]: true
   });
 });
 
 router.get('/staffbio', (req, res) => {
   res.render('staffbio', {
-    name: req.session.Firstname,
-    [req.session.type]: true
+    name: req.user.Firstname,
+    [req.user.Type]: true
   });
 });
 
 router.get('/staffnoti', (req, res) => {
   res.render('staffnoti', {
-    name: req.session.Firstname,
-    [req.session.type]: true
+    name: req.user.Firstname,
+    [req.user.Type]: true
   });
 });
 
 router.get('/staffmap', (req, res) => {
   res.render('staffmap', {
-    name: req.session.Firstname,
-    [req.session.type]: true
+    name: req.user.Firstname,
+    [req.user.Type]: true
   });
 });
 //Guard index---------------------------------------------------------
 router.get('/guard', (req, res) => {
-  console.log(req.session);
+  console.log(req.user);
   res.render('guard', {
-    name: req.session.Firstname,
-    [req.session.type]: true
+    name: req.user.Firstname,
+    [req.user.Type]: true
   });
 });
 
 router.get('/guardbio', (req, res) => {
   res.render('guardbio', {
-    name: req.session.Firstname,
-    [req.session.type]: true
+    name: req.user.Firstname,
+    [req.user.Type]: true
   });
 });
 
