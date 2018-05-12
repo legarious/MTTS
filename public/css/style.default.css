@@ -54,17 +54,16 @@ canvas {
 .container-fluid {
   padding: 0 30px;
 }
-.container-fluidnoti{
+.container-fluidnoti {
   padding: 0 30px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05), 0 3px 10px 0 rgba(0, 0, 0, 0.05);
 }
 .container-fluid55 {
   padding: 0 30px;
-  -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0,0.5);
-    -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, .5);
+  -moz-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+  -webkit-box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
+  box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.5);
 }
-
 
 @media (max-width: 575px) {
   .container-fluid {
@@ -74,7 +73,7 @@ canvas {
 
 header.page-header {
   padding: 20px 0;
-  width: 100%
+  width: 100%;
 }
 
 table {
@@ -870,7 +869,7 @@ nav.navbar .dropdown-menu h3 {
     /*==== Toggle Sidebar Btn ====*/
   }
   nav.navbar .navbar-brand .brand-small {
-    display: block ;
+    display: block;
   }
   nav.navbar .brand-big {
     display: none;
@@ -3274,4 +3273,51 @@ nav .input-field label.active i {
   top: 0;
   left: 0;
   opacity: 0;
+}
+.z-depth-1, nav, .card-panel, .card, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav {
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+          box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+#toast-container {
+  display: block;
+  position: fixed;
+  z-index: 10000;
+  padding-top: 50px;
+  font-size: 150%;
+  color:green;
+  
+}
+
+@media only screen and (max-width: 600px) {
+  #toast-container {
+    min-width: 100%;
+    bottom: 0%;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 992px) {
+  #toast-container {
+    left: 5%;
+    bottom: 7%;
+    max-width: 90%;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  #toast-container {
+    top: 10%;
+    right: 7%;
+    max-width: 86%;
+  }
+}
+
+
+@media only screen and (max-width: 600px) {
+  .toast {
+    width: 100%;
+    border-radius: 0;
+  }
+}
+.toast{
+
 }
