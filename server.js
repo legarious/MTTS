@@ -14,6 +14,8 @@ var cookieParser = require('cookie-parser');
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 
 //##############################################################
 //Load mongoose model
@@ -41,7 +43,7 @@ app.engine(
 );
 
 app.set('view engine', '.hbs');
-app.use(cookieParser());
+app.use(cookieParser('PJtheBest'));
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -56,10 +58,45 @@ app.use(
     secret: 'PJtheBest',
     resave: false,
     saveUninitialized: true,
-    store: new MongoStore({ mongooseConnection: mongoose.connection }),
-    cookie: { secure: true }
+    store: new MongoStore({ mongooseConnection: mongoose.connection })
+    //cookie: { secure: true }
   })
 );
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(
+  new LocalStrategy(function(username, password, done) {
+    console.log(username, password);
+    User.findOne({ Username: username, Password: password }, function(
+      err,
+      user
+    ) {
+      console.log(user);
+      if (err) {
+        return done(err);
+      }
+      if (!user) {
+        return done(null, false);
+      }
+      // if (!user.validPassword(password)) {
+      //   return done(null, false);
+      // }
+      return done(null, user);
+    });
+  })
+);
+passport.serializeUser(function(user, done) {
+  console.log(user.id);
+  done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+  console.log(id);
+  User.findById(id, function(err, user) {
+    console.log(user);
+    done(err, user);
+  });
+});
 //use routes
 app.use('/', index);
 

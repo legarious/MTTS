@@ -1,33 +1,43 @@
 <!-- Page Header-->
 <header class="page-header">
     <div class="container-fluid">
-        <h2 class="no-margin-bottom">All Notification</h2>
+        <h2 class="no-margin-bottom">News & Notification</h2>
     </div>
 </header>
-<!-- Dashboard Counts Section-->
-<section class="dashboard-counts no-padding-bottom">
-    <div class="container-fluidnoti">
+<section class="forms padding-top">
+    <div class="container-fluid">
         <div class="row">
-            <form metho d="POST" action="/newsadd"></form>
-            <div class="col">
-                <div class="card-header">
-                    <i class="fa fa-newspaper-o" style="font-size:24px"></i>
-                    <b>News</b>
-                    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="msgType" style="float:right">
-                        <label class="btn btn-info">
-                            <input type="radio" name="msgtype" id="msgstaff" value="msgstaff"> Staff
-                        </label>
-                        <label class="btn btn-info">
-                            <input type="radio" name="msgtype" id="msgguard" value="msgguard"> Guard
-                        </label>
+            <!-- Horizontal Form-->
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header d-flex align-items-center">
+                        <i class="fa fa-newspaper-o" style="font-size:24px"></i>
+                        <b>News</b>
                     </div>
+                    <form method="post" action="/newsadd">
+                        <div class="card-body">
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons" id="msgType" style="float:left">
+                                <label class="btn btn-info">
+                                    <input type="radio" name="msgtype" id="msgstaff" value="Staff"> Staff
+                                </label>
+                                <label class="btn btn-info">
+                                    <input type="radio" name="msgtype" id="msgguard" value="Guard"> Guard
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" rows="2" id="comment" placeholder="Any news today..." name="message"></textarea>
+                            </div>
+
+                            <div class="form-group row">
+                                <div class="col-sm-4 offset-sm-3">
+                                    <button type="Submit" class="btn btn-primary btn-lg btn-block">Submit</button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
                 </div>
-                <div class="form-group">
-                    <textarea class="form-control" rows="2" id="comment" placeholder="Any news today..." name="message"></textarea>
-                </div>
-                <button type="Submit" class="btn btn-primary btn-lg btn-block">Submit</button>
             </div>
-            </form>
         </div>
     </div>
 </section>
@@ -47,97 +57,29 @@
                                 <i class="fa fa-ellipsis-v"></i>
                             </button>
                             <div aria-labelledby="closeCard6" class="dropdown-menu dropdown-menu-right has-shadow">
-                                <a href="#" class="dropdown-item remove">
-                                    <i class="fa fa-times"></i>Close</a>
-                                <a href="#" class="dropdown-item edit">
-                                    <i class="fa fa-gear"></i>Edit</a>
+                                <a href="/fullnoti" class="dropdown-item edit">
+                                    <i class="fa fa-gear"></i>All Notification</a>
                             </div>
                         </div>
                     </div>
                     <div class="card-header">
-                        <h3 class="h4">Admin Notification</h3>
+                        <h3 class="h4">Recent Message added</h3>
                     </div>
                     <div class="card-body no-padding">
                         <!-- Item-->
+                        {{#each msg}}
                         <div class="item d-flex justify-content-between">
                             <div class="info d-flex">
                                 <div class="icon">
                                     <i class="icon-rss-feed"></i>
                                 </div>
                                 <div class="title">
-                                    <h5>Today total round</h5>
-                                    <p>Today transport is 30 round</p>
+                                    <h5>{{msgtype}}</h5>
+                                    <p>{{message}}</p>
                                 </div>
-                            </div>
-                            <div class="date text-right">
-                                <strong>24</strong>
-                                <span>May</span>
                             </div>
                         </div>
-                        <!-- Item-->
-                        <div class="item d-flex justify-content-between">
-                            <div class="info d-flex">
-                                <div class="icon">
-                                    <i class="icon-rss-feed"></i>
-                                </div>
-                                <div class="title">
-                                    <h5>Company C</h5>
-                                    <p>10 round today</p>
-                                </div>
-                            </div>
-                            <div class="date text-right">
-                                <strong>24</strong>
-                                <span>May</span>
-                            </div>
-                        </div>
-                        <!-- Item        -->
-                        <div class="item d-flex justify-content-between">
-                            <div class="info d-flex">
-                                <div class="icon">
-                                    <i class="icon-rss-feed"></i>
-                                </div>
-                                <div class="title">
-                                    <h5>Company B</h5>
-                                    <p>8 round today</p>
-                                </div>
-                            </div>
-                            <div class="date text-right">
-                                <strong>24</strong>
-                                <span>May</span>
-                            </div>
-                        </div>
-                        <!-- Item-->
-                        <div class="item d-flex justify-content-between">
-                            <div class="info d-flex">
-                                <div class="icon">
-                                    <i class="icon-rss-feed"></i>
-                                </div>
-                                <div class="title">
-                                    <h5>Company A</h5>
-                                    <p>6 round today</p>
-                                </div>
-                            </div>
-                            <div class="date text-right">
-                                <strong>24</strong>
-                                <span>May</span>
-                            </div>
-                        </div>
-                        <!-- Item-->
-                        <div class="item d-flex justify-content-between">
-                            <div class="info d-flex">
-                                <div class="icon">
-                                    <i class="icon-rss-feed"></i>
-                                </div>
-                                <div class="title">
-                                    <h5>Company F</h5>
-                                    <p>6 round today</p>
-                                </div>
-                            </div>
-                            <div class="date text-right">
-                                <strong>24</strong>
-                                <span>May</span>
-                            </div>
-                        </div>
+                        {{/each}}
                     </div>
                 </div>
             </div>
@@ -150,8 +92,6 @@
                                 <i class="fa fa-ellipsis-v"></i>
                             </button>
                             <div aria-labelledby="closeCard8" class="dropdown-menu dropdown-menu-right has-shadow">
-                                <a href="#" class="dropdown-item remove">
-                                    <i class="fa fa-times"></i>Close</a>
                                 <a href="#" class="dropdown-item edit">
                                     <i class="fa fa-gear"></i>Edit</a>
                             </div>
@@ -161,42 +101,6 @@
                         <h3 class="h4">Recent Activities</h3>
                     </div>
                     <div class="card-body no-padding">
-                        <div class="item">
-                            <div class="row">
-                                <div class="col-4 date-holder text-right">
-                                    <div class="icon">
-                                        <i class="icon-clock"></i>
-                                    </div>
-                                    <div class="date">
-                                        <span>6:00 am</span>
-                                        <span class="text-info">6 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="col-8 content">
-                                    <h5>Meeting</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="item">
-                            <div class="row">
-                                <div class="col-4 date-holder text-right">
-                                    <div class="icon">
-                                        <i class="icon-clock"></i>
-                                    </div>
-                                    <div class="date">
-                                        <span>6:00 am</span>
-                                        <span class="text-info">6 hours ago</span>
-                                    </div>
-                                </div>
-                                <div class="col-8 content">
-                                    <h5>Meeting</h5>
-                                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt
-                                        ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud.</p>
-                                </div>
-                            </div>
-                        </div>
                         <div class="item">
                             <div class="row">
                                 <div class="col-4 date-holder text-right">
