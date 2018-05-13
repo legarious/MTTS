@@ -21,6 +21,7 @@
     "npm": "^6.0.0",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "request": "^2.85.0",
     "router-express": "^1.5.2",
     "socket.io": "^2.0.4"
   },

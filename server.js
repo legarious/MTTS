@@ -16,6 +16,7 @@ const MongoStore = require('connect-mongo')(session);
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var request = require('request');
 
 //##############################################################
 //Load mongoose model
@@ -86,14 +87,14 @@ passport.use(
   })
 );
 passport.serializeUser(function(user, done) {
-  console.log(user.id);
+  //console.log(user.id);
   done(null, user.id);
 });
 
 passport.deserializeUser(function(id, done) {
-  console.log(id);
+  //console.log(id);
   User.findById(id, function(err, user) {
-    console.log(user);
+    //console.log(user);
     done(err, user);
   });
 });
@@ -102,19 +103,38 @@ app.use('/', index);
 
 //Get Data
 
+// request(
+//   {
+//     var a = document.getElementById('ip').value;
+//     method: 'POST',
+//     url: 'https://api.kairos.com/gallery/remove_subject',
+//     headers: {
+//       'Content-Type': 'application/json',
+//       app_id: 'c130ef9a',
+//       app_key: '96a612c100079dfb335b31a7c0350f83'
+//     },
+//     body: '{  "gallery_name": "Arti", "subject_id":a}'
+//   },
+//   function(error, response, body) {
+//     console.log('Status:', response.statusCode);
+//     console.log('Headers:', JSON.stringify(response.headers));
+//     console.log('Response:', body);
+//   }
+// );
+
 //Update Data
 
 //count staff
 io.on('connection', function(socket) {
   User.count({ Type: 'Staff' }, function(err, countpeople) {
-    console.log(countpeople);
+    //console.log(countpeople);
     io.emit('h', countpeople);
   });
 });
 //count Driver
 io.on('connection', function(socket) {
   User.count({ Type: 'Driver' }, function(err, countpeople1) {
-    console.log(countpeople1);
+    // console.log(countpeople1);
     io.emit('hh', countpeople1);
   });
 });
@@ -140,8 +160,8 @@ server.listen(3000, function() {
 });
 
 const random = (x, y) => {
-  console.log(Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`));
-  console.log(Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`));
+  // console.log(Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`));
+  // console.log(Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`));
   return {
     x: Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`),
     y: Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`)
@@ -150,6 +170,6 @@ const random = (x, y) => {
 //Fake Coordinate X and Y
 (function loop() {
   setInterval(function() {
-    io.emit('c', random(14.061, 100.601));
+    // io.emit('c', random(14.061, 100.601));
   }, 1090);
 })();

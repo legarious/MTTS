@@ -17,15 +17,21 @@
                             <div class="col-12">
                                 <div class="feed-body d-flex card-body">
                                     <div class="form-group row">
-                                        <div class="col-6">
+                                        <div class="col-8">
+                                            <a class="btn btn-danger" onclick="assignment();" type="button">
+                                                <i class="material-icons">assignment</i>
+                                            </a>
                                             <a class="btn btn-danger" type="button" onclick="startWebcam();">
                                                 <i class="material-icons">camera</i>
                                             </a>
                                             <a class="btn btn-danger" onclick="snapshot();" type="button" onclick="snapshot();">
                                                 <i class="material-icons">touch_app</i>
                                             </a>
+                                            <a class="btn btn-danger" onclick="deletePhoto();" type="button">
+                                                <i class="material-icons">delete</i>
+                                            </a>
                                         </div>
-                                        <div class="col-6">
+                                        <div class="col-8">
                                             <input placeholder="Enter ID" type="text" class="form-control" id="ip">
                                         </div>
                                         <p>
@@ -125,38 +131,53 @@
                     });
                     //console.log(img1.src);
                 }
-                function Delete() {
 
-                    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-                    var img1 = new Image();
-                    img1.src = canvas.toDataURL();
-                    var ip = document.getElementById('ip').value;
-                    datad = "{\r\n    \"image\":\"" + img1.src + "\",\r\n    \"subject_id\":\"" + ip + "\",\r\n    \"gallery_name\":\"Arti\"\r\n}";
-                    var settings = {
-                        "async": true,
-                        "crossDomain": true,
-                        "url": "https://api.kairos.com/enroll",
-                        "method": "POST",
-                        "headers": {
-                            "content-type": "application/json",
-                            "app_id": "c130ef9a",
-                            "app_key": "96a612c100079dfb335b31a7c0350f83",
-                            "cache-control": "no-cache"
-                        },
-                        "processData": false,
-                        "data": datad
-                    }
+                function assignment() {
+                    var request = new XMLHttpRequest();
 
-                    $.ajax(settings).done(function (response) {
-                        //
-                        if ((response.images[0].transaction.status) == "success") {
-                            Materialize.toast("Sucessful delete: " + response.images[0].transaction.subject_id + " in gallery name " + response.images[0].transaction.gallery_name, 4000);
+                    request.open('POST', 'https://api.kairos.com/gallery/view');
+
+                    request.setRequestHeader('Content-Type', 'application/json');
+                    request.setRequestHeader('app_id', 'c130ef9a');
+                    request.setRequestHeader('app_key', '96a612c100079dfb335b31a7c0350f83');
+
+                    request.onreadystatechange = function () {
+                        if (this.readyState === 4) {
+                            console.log('Status:', this.status);
+                            console.log('Headers:', this.getAllResponseHeaders());
+                            console.log('Body:', this.responseText);
                         }
-                        else {
-                            Materialize.toast("Unable to Delete Image", 4000);
-                        }
-                    });
-                    //console.log(img1.src);
+                    };
+
+                    var body = {
+                        'gallery_name': 'Arti'
+                    };
+
+                    request.send(JSON.stringify(body));
                 }
+                function deletePhoto() {
+                    var a = document.getElementById('ip').value;
+                    var request = new XMLHttpRequest();
 
+                    request.open('POST', 'https://api.kairos.com/gallery/remove_subject');
+
+                    request.setRequestHeader('Content-Type', 'application/json');
+                    request.setRequestHeader('app_id', 'c130ef9a');
+                    request.setRequestHeader('app_key', '96a612c100079dfb335b31a7c0350f83');
+
+                    request.onreadystatechange = function () {
+                        if (this.readyState === 4) {
+                            console.log('Status:', this.status);
+                            console.log('Headers:', this.getAllResponseHeaders());
+                            console.log('Body:', this.responseText);
+                        }
+                    };
+
+                    var body = {
+                        'gallery_name': 'Arti',
+                        'subject_id': a
+                    };
+
+                    request.send(JSON.stringify(body));
+                }
             </script>
