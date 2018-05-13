@@ -26,11 +26,7 @@
                                             <a class="btn btn-danger" onclick="snapshot();" type="button" onclick="snapshot();">
                                                 <i class="material-icons">touch_app</i>
                                             </a>
-<<<<<<< HEAD
-                                            <a class="btn btn-danger" onclick="delete();" type="button" onclick="delete();">
-=======
                                             <a class="btn btn-danger" onclick="deletePhoto();" type="button">
->>>>>>> d46ff42ee7acb54653814018aadfa10dae219a9c
                                                 <i class="material-icons">delete</i>
                                             </a>
                                         </div>
@@ -134,20 +130,12 @@
                     });
                     //console.log(img1.src);
                 }
-<<<<<<< HEAD
-                function delete (){
-                    var request = new XMLHttpRequest();
-
-                    request.open('POST', 'https://api.kairos.com/gallery/remove_subject');
-
-=======
 
                 function assignment() {
                     var request = new XMLHttpRequest();
 
                     request.open('POST', 'https://api.kairos.com/gallery/view');
 
->>>>>>> d46ff42ee7acb54653814018aadfa10dae219a9c
                     request.setRequestHeader('Content-Type', 'application/json');
                     request.setRequestHeader('app_id', 'c130ef9a');
                     request.setRequestHeader('app_key', '96a612c100079dfb335b31a7c0350f83');
@@ -161,12 +149,7 @@
                     };
 
                     var body = {
-<<<<<<< HEAD
-                        'gallery_name': 'MyGallery',
-                        'subject_id': 'bank'
-=======
                         'gallery_name': 'Arti'
->>>>>>> d46ff42ee7acb54653814018aadfa10dae219a9c
                     };
 
                     request.send(JSON.stringify(body));
