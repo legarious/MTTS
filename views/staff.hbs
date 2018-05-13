@@ -4,69 +4,81 @@
         <h2 class="no-margin-bottom">Dashboard</h2>
     </div>
 </header>
+<div class="card-body">
+    <div class="jumbotron">
+        {{#each msg}}
+        <h5>News from admin:</h5>{{message}}
+        <div class="checkbox">
+            <label>
+                <input type="checkbox" value="read">Read?</label>
+        </div>{{/each}}
+    </div>
+</div>
 <!-- Dashboard Counts Section-->
 <section class="dashboard-counts no-padding-bottom">
-    <div class="container-fluid">
-        <div class="row bg-white">
-            <!-- Item -->
-            <div class="col-xl-4 col-sm-6">
-                <div class="item d-flex align-items-center justify-content-center">
-                    <div class="icon bg-violet">
-                        <i class="icon-user"></i>
-                    </div>
-                    <div class="title">
-                        <span>Truck
-                            <br>Operate</span>
-                        <div class="progress">
-                            <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100"
-                                class="progress-bar bg-violet"></div>
+    <div class="container-fluid55">
+        <div class="container-fluid">
+            <div class="row bg-white">
+                <!-- Item -->
+                <div class="col-xl-4 col-sm-6">
+                    <div class="item d-flex align-items-center justify-content-center">
+
+                        <div class="icon bg-violet">
+                            <i class="icon-user"></i>
                         </div>
-                    </div>
-                    <div class="number">
-                        <strong>5</strong>
+                        <div class="title">
+                            <span>Truck
+                                <br>Operate</span>
+                            <div class="progress">
+                                <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100"
+                                    class="progress-bar bg-violet"></div>
+                            </div>
+                        </div>
+                        <div class="number">
+                            <strong>5</strong>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Item -->
-            <div class="col-xl-4 col-sm-6">
-                <div class="item d-flex align-items-center justify-content-center">
-                    <div class="icon bg-red">
-                        <i class="icon-padnote"></i>
-                    </div>
-                    <div class="title">
-                        <span>Truck
-                            <br>Awaiting</span>
-                        <div class="progress">
-                            <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100"
-                                class="progress-bar bg-red"></div>
+                <!-- Item -->
+                <div class="col-xl-4 col-sm-6">
+                    <div class="item d-flex align-items-center justify-content-center">
+                        <div class="icon bg-red">
+                            <i class="icon-padnote"></i>
                         </div>
-                    </div>
-                    <div class="number">
-                        <strong>6</strong>
+                        <div class="title">
+                            <span>Truck
+                                <br>Awaiting</span>
+                            <div class="progress">
+                                <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100"
+                                    class="progress-bar bg-red"></div>
+                            </div>
+                        </div>
+                        <div class="number">
+                            <strong>6</strong>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <!-- Item -->
-            <div class="col-xl-4 col-sm-6">
-                <div class="item d-flex align-items-center justify-content-center">
-                    <div class="icon bg-green">
-                        <i class="icon-bill"></i>
-                    </div>
-                    <div class="title">
-                        <span>Estimate
-                            <br>Today</span>
-                        <div class="progress">
-                            <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100"
-                                class="progress-bar bg-green"></div>
+                <!-- Item -->
+                <div class="col-xl-4 col-sm-6">
+                    <div class="item d-flex align-items-center justify-content-center">
+                        <div class="icon bg-green">
+                            <i class="icon-bill"></i>
                         </div>
-                    </div>
-                    <div class="number">
-                        <strong>17</strong>
+                        <div class="title">
+                            <span>Estimate
+                                <br>Today</span>
+                            <div class="progress">
+                                <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100"
+                                    class="progress-bar bg-green"></div>
+                            </div>
+                        </div>
+                        <div class="number">
+                            <strong>17</strong>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
 </section>
 </section>

@@ -42,7 +42,7 @@ router.post('/insert', function(req, res) {
     function(err, data) {
       if (data) {
         User.find({}, function(err, docs) {
-          res.redirect('adminedit', {
+          res.render('adminedit', {
             user: docs,
             [req.user.Type]: true,
             name: req.user.Firstname
@@ -300,16 +300,30 @@ router.get('/adminnoti', (req, res) => {
 });
 //Staff index---------------------------------------------------------
 router.get('/staff', (req, res) => {
-  res.render('staff', {
-    name: req.user.Firstname,
-    [req.user.Type]: true
-  });
+  db
+    .collection('addmessage')
+    .find({ msgtype: 'Staff' })
+    .sort([['_id', -1]])
+    .limit(5)
+    .toArray(function(err, data) {
+      console.log(data);
+      res.render('staff', {
+        [req.user.Type]: true,
+        name: req.user.Firstname,
+        msg: data
+      });
+    });
 });
 
 router.get('/staffbio', (req, res) => {
+  console.log(req.user);
   res.render('staffbio', {
+    [req.user.Type]: true,
     name: req.user.Firstname,
-    [req.user.Type]: true
+    userbio: req.user,
+    name: req.user.Firstname,
+    Hdate: moment(req.user.HDate).format('DD MMMM YYYY'),
+    Bdate: moment(req.user.BirthDate).format('DD MMMM YYYY')
   });
 });
 
@@ -336,9 +350,13 @@ router.get('/guard', (req, res) => {
 });
 
 router.get('/guardbio', (req, res) => {
-  res.render('guardbio', {
+  res.render('staffbio', {
+    [req.user.Type]: true,
     name: req.user.Firstname,
-    [req.user.Type]: true
+    userbio: req.user,
+    name: req.user.Firstname,
+    Hdate: moment(req.user.HDate).format('DD MMMM YYYY'),
+    Bdate: moment(req.user.BirthDate).format('DD MMMM YYYY')
   });
 });
 
