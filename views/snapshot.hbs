@@ -96,7 +96,9 @@
                     canvas = document.getElementById("myCanvas");
                     ctx = canvas.getContext('2d');
                 })()
-
+                //---------------------
+                //     Snapshot
+                //---------------------
                 function snapshot() {
 
                     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
@@ -130,6 +132,9 @@
                     });
                     //console.log(img1.src);
                 }
+                //---------------------
+                // list all candidate
+                //---------------------
 
                 function assignment() {
                     var request = new XMLHttpRequest();
@@ -145,6 +150,9 @@
                             console.log('Status:', this.status);
                             console.log('Headers:', this.getAllResponseHeaders());
                             console.log('Body:', this.responseText);
+
+
+
                         }
                     };
 
@@ -153,6 +161,10 @@
                     };
 
                     request.send(JSON.stringify(body));
+
+                    //---------------------
+                    // Delete candidate
+                    //---------------------
                 }
                 function deletePhoto() {
                     var a = document.getElementById('ip').value;
