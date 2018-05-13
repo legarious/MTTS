@@ -54,10 +54,12 @@
     <div class="page home-page">
       {{> _navbar}}
       <div class="page-content d-flex align-items-stretch">
-        <nav class="side-navbar">
-          {{#if Admin}} {{> sidebar/_admin}} {{/if}} {{#if Staff}} {{> sidebar/_staff}} {{/if}} {{#if Guard}} {{> sidebar/_guard}}
-          {{/if}}
-        </nav>
+        <span class="border border-secondary">
+          <nav class="side-navbar">
+            {{#if Admin}} {{> sidebar/_admin}} {{/if}} {{#if Staff}} {{> sidebar/_staff}} {{/if}} {{#if Guard}} {{> sidebar/_guard}}
+            {{/if}}
+          </nav>
+        </span>
         <div class="content-inner">
           <div class="container33">
             {{{body}}}
