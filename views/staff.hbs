@@ -6,16 +6,13 @@
 </header>
 <div class="card-body">
     <div class="jumbotron">
-        {{#each msg}}
-        <h5>News from admin:</h5>{{message}}
-        <div class="checkbox">
-            <label>
-                <input type="checkbox" value="read">Read?</label>
-        </div>{{/each}}
+        {{#if msg}} {{#each msg}}
+        <h5>News from admin:</h5>{{message}} {{/each}} {{/if}} {{#else}}
+        <h5>No message at this time..</h5>{{message}} {{/else}}
     </div>
 </div>
 <!-- Dashboard Counts Section-->
-<section class="dashboard-counts no-padding-bottom">
+<section class="dashboard-counts no-padding-bottom no-padding-top">
     <div class="container-fluid55">
         <div class="container-fluid">
             <div class="row bg-white">
