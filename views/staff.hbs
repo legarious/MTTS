@@ -7,8 +7,8 @@
 <div class="card-body">
     <div class="jumbotron">
         {{#if msg}} {{#each msg}}
-        <h5>News from admin:</h5>{{message}} {{/each}} {{/if}} {{#else}}
-        <h5>No message at this time..</h5>{{message}} {{/else}}
+        <h5>News from admin:</h5>{{message}} {{/each}} {{else}}
+        <h5>No message at this time..</h5> {{/if}}
     </div>
 </div>
 <!-- Dashboard Counts Section-->
@@ -121,5 +121,6 @@
         socket.on('d', function (online) {
             $('#online').html(online);
         });
+        if ()
     })();
 </script>

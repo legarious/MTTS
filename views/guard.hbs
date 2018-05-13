@@ -5,6 +5,11 @@
     </div>
 </header>
 <section class="updates container-fluid1">
+    <div class="jumbotron">
+        {{#if msg}} {{#each msg}}
+        <h5>News from admin:</h5>{{message}} {{/each}} {{else}}
+        <h5>No message at this time..</h5> {{/if}}
+    </div>
     <div class="container-fluid" style="padding-top: 0" style="padding-top: 30px">
         <div class="row-lg-6">
             <div class="col-lg-4  col-lg-8">

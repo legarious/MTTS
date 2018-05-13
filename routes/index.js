@@ -117,7 +117,14 @@ router.get('/', function(req, res) {
 });
 router.post('/newsadd', function(req, res) {
   console.log(req.body);
-  db.collection('addmessage').save(req.body);
+  var currenttime = new Date().getTime();
+
+  console.log(currenttime);
+  db.collection('addmessage').save({
+    msgtype: req.body.msgtype,
+    message: req.body.message,
+    starttime: currenttime
+  });
   res.redirect('/adminnoti');
 });
 router.post('/login', (req, res, next) => {
@@ -307,10 +314,22 @@ router.get('/staff', (req, res) => {
     .limit(5)
     .toArray(function(err, data) {
       console.log(data);
+      var senddata = [];
+      var endtime = 30000;
+      var today = new Date().getTime();
+      for (var i = 0; i < data.length; i++) {
+        if (today - data[i].starttime < endtime) {
+          senddata.push(data[i]);
+        }
+      }
+      if (senddata.length == 0) {
+        senddata = false;
+      }
+      console.log(senddata);
       res.render('staff', {
         [req.user.Type]: true,
         name: req.user.Firstname,
-        msg: data
+        msg: senddata
       });
     });
 });
@@ -342,11 +361,31 @@ router.get('/staffmap', (req, res) => {
 });
 //Guard index---------------------------------------------------------
 router.get('/guard', (req, res) => {
-  console.log(req.user);
-  res.render('guard', {
-    name: req.user.Firstname,
-    [req.user.Type]: true
-  });
+  db
+    .collection('addmessage')
+    .find({ msgtype: 'Guard' })
+    .sort([['_id', -1]])
+    .limit(5)
+    .toArray(function(err, data) {
+      console.log(data);
+      var senddata = [];
+      var endtime = 30000;
+      var today = new Date().getTime();
+      for (var i = 0; i < data.length; i++) {
+        if (today - data[i].starttime < endtime) {
+          senddata.push(data[i]);
+        }
+      }
+      if (senddata.length == 0) {
+        senddata = false;
+      }
+      console.log(senddata);
+      res.render('guard', {
+        [req.user.Type]: true,
+        name: req.user.Firstname,
+        msg: senddata
+      });
+    });
 });
 
 router.get('/guardbio', (req, res) => {
