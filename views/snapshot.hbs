@@ -4,43 +4,72 @@
     </div>
 </header>
 <section class="updates container-fluid1">
-    <div class="container-fluid" style="padding-top: 0" style="padding-top: 30px">
+    <div class="container-fluid" style="padding-right: 0" style="padding-top: 0" style="padding-top: 30px">
         <div class="row-lg-6">
-            <div class="col-lg-4  col-lg-8">
+            <div class="col-11 ">
                 <div class="daily-feeds card">
                     <div class="card-header" style="margin-bottom: auto">
                         <h3 class="h4">Verify Driver</h3>
                     </div>
                     <div class="item">
-                        <div class="feed d-flex justify-content-between">
-                            <div class="col-12">
-                                <div class="feed-body d-flex card-body">
-                                    <div class="form-group row">
-                                        <div class="col-8">
-                                            <a class="btn btn-danger" onclick="assignment();" type="button">
-                                                <i class="material-icons">assignment</i>
-                                            </a>
-                                            <a class="btn btn-danger" type="button" onclick="startWebcam();">
-                                                <i class="material-icons">camera</i>
-                                            </a>
-                                            <a class="btn btn-danger" onclick="snapshot();" type="button" onclick="snapshot();">
-                                                <i class="material-icons">touch_app</i>
-                                            </a>
-                                            <a class="btn btn-danger" onclick="deletePhoto();" type="button">
-                                                <i class="material-icons">delete</i>
-                                            </a>
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="feed d-flex justify-content-between">
+                                    <div class="col-12">
+                                        <div class="feed-body d-flex card-body">
+                                            <div class="form-group row">
+                                                <div class="col-8">
+                                                    <a class="btn btn-danger" onclick="assignment();" type="button">
+                                                        <i class="material-icons">assignment</i>
+                                                    </a>
+                                                    <a class="btn btn-danger" type="button" onclick="startWebcam();">
+                                                        <i class="material-icons">camera</i>
+                                                    </a>
+                                                    <a class="btn btn-danger" onclick="snapshot();" type="button" onclick="snapshot();">
+                                                        <i class="material-icons">touch_app</i>
+                                                    </a>
+                                                    <a class="btn btn-danger" onclick="deletePhoto();" type="button">
+                                                        <i class="material-icons">delete</i>
+                                                    </a>
+                                                </div>
+                                                <div class="col-8">
+                                                    <input placeholder="Enter ID" type="text" class="form-control" id="ip">
+                                                </div>
+                                                <p>
+                                                    <video onclick="snapshot(this);" width=300 height=300 id="video" controls autoplay></video>
+                                                    <br>
+                                                    <canvas id="myCanvas" width="300" height="220"></canvas>
+                                                </p>
+                                            </div>
                                         </div>
-                                        <div class="col-8">
-                                            <input placeholder="Enter ID" type="text" class="form-control" id="ip">
-                                        </div>
-                                        <p>
-                                            <video onclick="snapshot(this);" width=300 height=300 id="video" controls autoplay></video>
-                                            <br>
-                                            <canvas id="myCanvas" width="300" height="220"></canvas>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
+                            <div class="col" style="no-padding-left">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect2">ID available</label>
+                                    <select multiple class="form-control" id="kairosdata">
+
+
+                                    </select>
+                                </div>
+                            </div>
+                            {{!--
+                            <div class="col" style="no-padding-left">
+                                <div class="item">
+                                    <table class="table">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th scope="col">#</th>
+                                                <th scope="col">ID</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="kairosdata">
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -124,7 +153,7 @@
                     $.ajax(settings).done(function (response) {
                         //
                         if ((response.images[0].transaction.status) == "success") {
-                            Materialize.toast("Image Trained succesfully by name " + response.images[0].transaction.subject_id + " in gallery name " + response.images[0].transaction.gallery_name, 4000);
+                            Materialize.toast("Image Trained succesfully by name " + response.images[0].transaction.subject_id + " in gallery name " + response.images[0].transaction.gallery_name, 1000);
                         }
                         else {
                             Materialize.toast("Unable to Train Image", 4000);
@@ -150,6 +179,15 @@
                             console.log('Status:', this.status);
                             console.log('Headers:', this.getAllResponseHeaders());
                             console.log('Body:', this.responseText);
+                            var profile = JSON.parse(this.responseText);
+                            console.log(profile);
+                            for (i = 0; i < profile.subject_ids.length; i++) {
+                                console.log(profile.subject_ids[i]);
+                                var ii = i + 1;
+                                $("#kairosdata").empty();
+                                $("#kairosdata").append("<p><option>" + profile.subject_ids[i] + "</option></p>");
+
+                            }
                         }
                     };
                     var body = {
@@ -177,14 +215,15 @@
                             console.log('Status:', this.status);
                             console.log('Headers:', this.getAllResponseHeaders());
                             console.log('Body:', this.responseText);
+                            var delid = JSON.parse(this.responseText);
+                            console.log(delid.message);
+                            alert(delid.message);
                         }
                     };
-
                     var body = {
                         'gallery_name': 'Arti',
                         'subject_id': a
                     };
-
                     request.send(JSON.stringify(body));
                 }
             </script>
