@@ -214,23 +214,6 @@ router.get('/admin', (req, res) => {
     });
   });
 });
-
-/**
- * ค่าสามารถส่งไปเป็นอะไรก็ได้ แล้วเราก็สามารถเอาไปใช้ได้
- * เช่น ส่ง user: 'Pojop P.'
- * ก็สามารถเอา user ไปใส่ใน sidebar ตรงที่เป็นชื่อคนได้
- * ---------- sidebar/*.hbs ----------
- *  ===== Before =====
- *  5 <div class="title">
- *  6   <h1 class="h4">{{user}}</h1>
- *  7    <p>Staff</p>
- *  8 </div>
- *  ===== After =====
- *  5 <div class="title">
- *  6   <h1 class="h4">Pojop P.</h1> | ใน {{user}} ก็จะถูกแทนที่ด้วย Pojop P. ที่เราส่งมาตอน render
- *  7    <p>Staff</p>
- *  8 </div>
- */
 router.get('/snapshot', (req, res) => {
   res.render('snapshot', {
     [req.user.Type]: true,
@@ -345,7 +328,17 @@ router.get('/staffbio', (req, res) => {
     Bdate: moment(req.user.BirthDate).format('DD MMMM YYYY')
   });
 });
-
+router.get('/viewdriver', (req, res) => {
+  User.find({ Type: 'Driver' }, function(err, data) {
+    res.render('viewdriver', {
+      [req.user.Type]: true,
+      name: req.user.Firstname,
+      userbio: req.user,
+      name: req.user.Firstname,
+      alldriver: data
+    });
+  });
+});
 router.get('/staffnoti', (req, res) => {
   res.render('staffnoti', {
     name: req.user.Firstname,

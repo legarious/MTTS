@@ -1,0 +1,90 @@
+<header class="page-header">
+    <div class="container-fluid">
+        <h2 class="no-margin-bottom">Employee Information</h2>
+    </div>
+</header>
+<!-- Updates Section                                                -->
+<section class="updates container-fluid1" style="padding-bottom: 0">
+    <div class="container-fluid">
+        <div class="row-lg-6">
+            <!-- Daily Feeds -->
+            <div class="col-lg-10 ">
+                <div class="daily-feeds card">
+                    <div class="card-close">
+
+                    </div>
+                    <div class="card-header">
+                        <h3 class="h4">All Driver</h3>
+                    </div>
+                    <!--Personal Information                           -->
+                    {{#each alldriver}}
+                    <div class="item">
+                        <div class="feed d-flex justify-content-between">
+                            <a href="#" class="feed-profile">
+                                <img src="img/avatar-6.jpg" alt="person" class="img-fluid">
+                            </a>
+                            <div class="card" style="width:100%">
+                                <div class="content card-body" style="padding-left:30px">
+                                    <h1>
+                                        <font color="black">{{Firstname}} {{Lastname}}</font>
+                                    </h1>
+                                    <span>
+                                        <strong id="name1">
+                                            <font color="black">Department:</font>
+                                        </strong>&nbsp;{{Dept}}</span>
+                                    <br>
+                                    <span>
+                                        <strong>
+                                            <font color="black">Employee ID:</font>
+                                        </strong>&nbsp;{{ID}}</span>
+                                    <br>
+                                    <span>
+                                        <strong>
+                                            <font color="black">Birth date:</font>
+                                        </strong>{{Bdate}}</span>
+                                    <br>
+                                    <span>
+                                        <strong>
+                                            <font color="black">Age:</font>
+                                        </strong>{{Age}}</span>
+                                    <br>
+                                    <span>
+                                        <strong>
+                                            <font color="black">Sex:</font>
+                                        </strong>{{Sex}}</span>
+                                    <br>
+                                    <span>
+                                        <strong>
+                                            <font color="black">Hire date:</font>
+                                        </strong>{{Hdate}}</span>
+                                    <br>
+                                    <span>
+                                        <strong>
+                                            <font color="black">Position:</font>
+                                        </strong>{{POS}}</span>
+                                    <br>
+                                    <span>
+                                        <strong>
+                                            <font color="black">Home Address:</font>
+                                        </strong> {{HAddress}}</span>
+                                    <br>
+                                    <span>
+                                        <strong>
+                                            <font color="black">Home Phone:</font>
+                                        </strong>{{HPhone}}</span>
+                                    <br>
+                                    <span>
+                                        <strong>
+                                            <font color="black">Mobile Phone:</font>
+                                        </strong>{{MPhone}}</span>
+                                    <br>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+</section>
