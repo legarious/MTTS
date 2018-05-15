@@ -180,13 +180,21 @@ router.get('/snapshot', (req, res) => {
 });
 
 router.get('/adminedit', (req, res) => {
-  User.find({}, function(err, docs) {
-    res.render('adminedit', {
-      user: docs,
-      [req.user.Type]: true,
-      name: req.user.Firstname
-    });
-  });
+  User.find(
+    {
+      $and: [
+        { $or: [{ Type: 'Driver' }, { Type: 'Staff' }, { Type: 'Guard' }] }
+      ]
+    },
+    function(err, docs) {
+      console.log(docs);
+      res.render('adminedit', {
+        user: docs,
+        [req.user.Type]: true,
+        name: req.user.Firstname
+      });
+    }
+  );
 });
 router.post('/edit', (req, res) => {
   User.update({ ID: req.body.ID }, req.body, function(err, data) {
