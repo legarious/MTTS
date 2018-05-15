@@ -48,28 +48,10 @@
                             <div class="col" style="no-padding-left">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect2">ID available</label>
-                                    <select multiple class="form-control" id="kairosdata">
-
-
+                                    <select multiple class="form-control" id="kairossdata">
                                     </select>
                                 </div>
                             </div>
-                            {{!--
-                            <div class="col" style="no-padding-left">
-                                <div class="item">
-                                    <table class="table">
-                                        <thead class="thead-dark">
-                                            <tr>
-                                                <th scope="col">#</th>
-                                                <th scope="col">ID</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="kairosdata">
-
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div> --}}
                         </div>
                     </div>
                 </div>
@@ -179,21 +161,19 @@
                             console.log('Status:', this.status);
                             console.log('Headers:', this.getAllResponseHeaders());
                             console.log('Body:', this.responseText);
-                            var profile = JSON.parse(this.responseText);
+                            var profilesnapshot = JSON.parse(this.responseText);
                             console.log(profile);
-                            for (i = 0; i < profile.subject_ids.length; i++) {
-                                console.log(profile.subject_ids[i]);
+                            for (i = 0; i < profilesnapshot.subject_ids.length; i++) {
+                                console.log(profilesnapshot.subject_ids[i]);
                                 var ii = i + 1;
-                                $("#kairosdata").empty();
-                                $("#kairosdata").append("<p><option>" + profile.subject_ids[i] + "</option></p>");
-
+                                $("#kairossdata").empty();
+                                $("#kairossdata").append("<p><option>" + profilesnapshot.subject_ids[i] + "</option></p>");
                             }
                         }
                     };
                     var body = {
                         'gallery_name': 'Arti'
                     };
-
                     request.send(JSON.stringify(body));
 
                     //---------------------
