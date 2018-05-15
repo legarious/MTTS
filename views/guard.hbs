@@ -125,7 +125,7 @@
                 }
                 $.ajax(settings).done(function (response) {
                     var m = response;
-
+                    //function for save pass identification to log page
                     if (JSON.stringify(m).indexOf("success") > -1) {
                         Materialize.toast('User Identfied. Name : ' + JSON.stringify(m.images[0].candidates[0].subject_id), 1000);
                         console.log(m.images[0].candidates[0].subject_id);

@@ -15,7 +15,7 @@ require('../model/User');
 var User = mongoose.model('accounts');
 //insert data to database
 router.post('/insert', function(req, res) {
-  console.log(req.body);
+  //console.log(req.body);
   var newUser = new User({
     Type: req.body.Type,
     Username: req.body.Username,
@@ -44,8 +44,7 @@ router.post('/insert', function(req, res) {
         User.find({}, function(err, docs) {
           res.render('adminedit', {
             user: docs,
-            [req.user.Type]: true,
-            name: req.user.Firstname
+            [req.user.Type]: true
           });
         });
 
@@ -116,19 +115,24 @@ router.get('/', function(req, res) {
   });
 });
 router.post('/newsadd', function(req, res) {
-  console.log(req.body);
+  //console.log(req.body);
   var currenttime = new Date().getTime();
-
-  console.log(currenttime);
+  var fullday = new Date()
+    .toISOString()
+    .replace('-', '/')
+    .split('T')[0]
+    .replace('-', '/');
+  // console.log(fullday);
   db.collection('addmessage').save({
     msgtype: req.body.msgtype,
     message: req.body.message,
-    starttime: currenttime
+    starttime: currenttime,
+    fullday: fullday
   });
   res.redirect('/adminnoti');
 });
 router.post('/login', (req, res, next) => {
-  console.log(req.body);
+  //console.log(req.body);
   User.findOne({ Username: req.body.username })
     .then(user => {
       if (user.Type === 'Admin') {
@@ -153,59 +157,13 @@ router.post('/login', (req, res, next) => {
       res.redirect('/');
     });
 });
-// router.post('/login', function(req, res) {
-//   //console.log(req.body);
-//   var user = req.body.loginUsername;
-//   var pass = req.body.loginPassword;
-//   db
-//     .collection('accounts')
-//     .findOne({ Username: user, Password: pass }, function(err, data) {
-//       if (data) {
-//         console.log('Post from login page---------------------');
-//         console.log(data);
-//         //login pass
-//         req.session.Data = data;
-//         req.session.Firstname = data.Firstname;
-//         req.session.user = data.ID;
-//         req.session.T = data.Type;
-//         console.log(req.session.user);
-//         res.cookie('user', req.session.ID, {
-//           maxAge: 30000
-//         });
-//         res.cookie('type', req.session.Type, {
-//           maxAge: 30000
-//         });
-//         console.log(data.Type);
-//         console.log('Cookies: ', req.cookies);
-//         console.log(req.session);
-//         if (data.Type == 'Admin') {
-//           res.render('admin', {
-//             name: req.session.Firstname,
-//             [req.session.type]: true
-//           });
-//         } else if (data.Type == 'Staff') {
-//           res.render('staff', {
-//             name: req.session.Firstname,
-//             [req.session.type]: true
-//           });
-//         } else if (data.Type == 'Guard') {
-//           res.render('guard', {
-//             name: req.session.Firstname,
-//             [req.session.type]: true
-//           });
-//         }
-//       } else {
-//         res.render('login');
-//       }
-//     });
-// });
 router.get('/logout', function(req, res) {
   req.logout();
   res.redirect('/');
 });
 //Admin index---------------------------------------
 router.get('/admin', (req, res) => {
-  console.log(req);
+  //console.log(req);
   User.find({ Type: 'Driver' }, function(err, docs) {
     res.render('admin', {
       user: docs,
@@ -233,12 +191,6 @@ router.get('/adminedit', (req, res) => {
 router.post('/edit', (req, res) => {
   User.update({ ID: req.body.ID }, req.body, function(err, data) {
     res.redirect('back');
-  });
-});
-router.get('/adminstat', (req, res) => {
-  res.render('adminstat', {
-    [req.user.Type]: true,
-    name: req.user.Firstname
   });
 });
 router.get('/deleteuser', (req, res) => {
@@ -340,10 +292,38 @@ router.get('/viewdriver', (req, res) => {
   });
 });
 router.get('/staffnoti', (req, res) => {
-  res.render('staffnoti', {
-    name: req.user.Firstname,
-    [req.user.Type]: true
-  });
+  //still have problem
+  var thisday = new Date()
+    .toISOString()
+    .replace('-', '/')
+    .split('T')[0]
+    .replace('-', '/');
+  console.log(thisday);
+  db
+    .collection('addmessage')
+    .find({ msgtype: 'Staff' })
+    .sort([['_id', -1]])
+    .toArray(function(err, data) {
+      console.log(data);
+      var senddata = [];
+
+      var today = new Date().getTime();
+      for (var i = 0; i < data.length; i++) {
+        if (thisday == data[i].fullday) {
+          senddata.push(data[i]);
+          console.log(senddata);
+        }
+      }
+      if (senddata.length == 0) {
+        senddata = false;
+      }
+      console.log(senddata);
+      res.render('staffnoti', {
+        [req.user.Type]: true,
+        name: req.user.Firstname,
+        staffmessage: senddata
+      });
+    });
 });
 
 router.get('/staffmap', (req, res) => {
