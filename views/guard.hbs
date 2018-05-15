@@ -12,35 +12,43 @@
     </div>
     <div class="container-fluid" style="padding-top: 0" style="padding-top: 30px">
         <div class="row-lg-6">
-            <div class="col-lg-4  col-lg-8">
-                <div class="daily-feeds card">
-                    <div class="card-header" style="margin-bottom: auto">
-                        <h3 class="h4">Verify Driver</h3>
-                    </div>
-                    <div class="item">
-                        <div class="feed d-flex justify-content-between">
-                            <div class="col-12">
-                                <div class="feed-body d-flex card-body">
-                                    <div class="form-group row">
-                                        <div class="col-6">
-                                            <a class="btn btn-danger" type="button" onclick="startWebcam();">
-                                                <i class="material-icons">camera</i>
-                                            </a>
-                                            <a class="btn btn-danger" onclick="snapshot();" type="button" onclick="snapshot();">
-                                                <i class="material-icons">touch_app</i>
-                                            </a>
+            <div class="col" style="no-padding-left">
+                <div class="form-group">
+                    <label for="exampleFormControlSelect2">ID available</label>
+                    <select multiple class="form-control" id="kairosgdata">
+
+                    </select>
+                </div>
+                <div class="col-lg-4  col-lg-8">
+                    <div class="daily-feeds card">
+                        <div class="card-header" style="margin-bottom: auto">
+                            <h3 class="h4">Verify Driver</h3>
+                        </div>
+                        <div class="item">
+                            <div class="feed d-flex justify-content-between">
+                                <div class="col-12">
+                                    <div class="feed-body d-flex card-body">
+                                        <div class="form-group row">
+                                            <div class="col-6">
+                                                <a class="btn btn-danger" type="button" onclick="startWebcam();">
+                                                    <i class="material-icons">camera</i>
+                                                </a>
+                                                <a class="btn btn-danger" onclick="snapshot();" type="button" onclick="snapshot();">
+                                                    <i class="material-icons">touch_app</i>
+                                                </a>
+                                            </div>
+                                            <div class="col-6">
+                                                <input placeholder="" type="text" class="form-control" id="ip">
+                                            </div>
+                                            <p>
+                                                <video onclick="snapshot(this);" width=300 height=300 id="video" controls autoplay></video>
+                                                <br>
+                                                <canvas id="myCanvas" width="300" height="220"></canvas>
+                                            </p>
+                                            <audio id="myAudio">
+                                                <source src="success.wav" type="audio/wav">
+                                            </audio>
                                         </div>
-                                        <div class="col-6">
-                                            <input placeholder="" type="text" class="form-control" id="ip">
-                                        </div>
-                                        <p>
-                                            <video onclick="snapshot(this);" width=300 height=300 id="video" controls autoplay></video>
-                                            <br>
-                                            <canvas id="myCanvas" width="300" height="220"></canvas>
-                                        </p>
-                                        <audio id="myAudio">
-                                            <source src="success.wav" type="audio/wav">
-                                        </audio>
                                     </div>
                                 </div>
                             </div>
@@ -128,13 +136,17 @@
                     //function for save pass identification to log page
                     if (JSON.stringify(m).indexOf("success") > -1) {
                         Materialize.toast('User Identfied. Name : ' + JSON.stringify(m.images[0].candidates[0].subject_id), 1000);
-                        console.log(m.images[0].candidates[0].subject_id);
+                        //console.log(m.images[0].candidates[0].subject_id);
+                        var profileguard = m.images[0].candidates[0].subject_id;
+                        //console.log(profileguard);
+                        $("#kairosgdata").append("<p><option>" + profileguard + "</option></p>");
                     }
                     else {
                         Materialize.toast('User Not identified');
                     }
-                    console.log(+ JSON.stringify(m.images[0].subject_id))
+                    //console.log(+ JSON.stringify(m.images[0].subject_id))
                 });
+
 
             }
         </script>
