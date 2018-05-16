@@ -17,13 +17,16 @@ var bodyParser = require('body-parser');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var request = require('request');
+var path = require('path');
 
 //##############################################################
 //Load mongoose model
 require('./model/User');
+
 var User = mongoose.model('accounts');
 //Load routes
 var index = require('./routes/index');
+// var routes = require('./routes/imagefile');
 // Database connect
 var url = 'mongodb://Test1:12345@ds253889.mlab.com:53889/mtts';
 mongoose.connect(url);
@@ -100,7 +103,7 @@ passport.deserializeUser(function(id, done) {
 });
 //use routes
 app.use('/', index);
-
+// app.use('/image', routes);
 //count staff
 io.on('connection', function(socket) {
   User.count({ Type: 'Staff' }, function(err, countpeople) {
@@ -142,6 +145,21 @@ const random = (x, y) => {
   return {
     x: Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`),
     y: Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`)
+  };
+};
+//Fake Coordinate X and Y
+(function loop() {
+  setInterval(function() {
+    io.emit('c', random(14.061, 100.601));
+  }, 1090);
+})();
+
+const random1 = (x1, y1) => {
+  // console.log(Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`));
+  // console.log(Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`));
+  return {
+    x1: Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`),
+    y1: Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`)
   };
 };
 //Fake Coordinate X and Y
