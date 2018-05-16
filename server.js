@@ -22,8 +22,11 @@ var path = require('path');
 //##############################################################
 //Load mongoose model
 require('./model/User');
-
+require('./model/map');
+require('./model/map1');
 var User = mongoose.model('accounts');
+var map = mongoose.model('car1');
+var map1 = mongoose.model('car2');
 //Load routes
 var index = require('./routes/index');
 // var routes = require('./routes/imagefile');
@@ -138,33 +141,62 @@ io.on('disconnect', function(socket) {
 server.listen(3000, function() {
   console.log('Example app Running on port 3000.');
 });
-
-const random = (x, y) => {
-  // console.log(Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`));
-  // console.log(Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`));
+var result1, result2;
+const random = (car1, xx, yy) => {
+  xx = Number(`${xx}${Math.floor(Math.random() * 1000000 + 1)}`);
+  yy = Number(`${yy}${Math.floor(Math.random() * 1000000 + 1)}`);
+  db.collection('car1').save({
+    id: 'ID1',
+    x: xx,
+    y: yy
+  });
+  map
+    .findOne({ id: 'ID1' }, function(err, data) {
+      result1 = data.x;
+      result2 = data.y;
+      // console.log(result1);
+      // console.log(result2);
+      // console.log(typeof data);
+    })
+    .sort([['_id', -1]]);
   return {
-    x: Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`),
-    y: Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`)
+    result1,
+    result2
   };
 };
 //Fake Coordinate X and Y
 (function loop() {
   setInterval(function() {
-    io.emit('c', random(14.061, 100.601));
+    io.emit('c', random('car1', 14.061, 100.601));
   }, 1090);
 })();
+var result3, result4;
+const random1 = (car2, x1, y1) => {
+  x1 = Number(`${x1}${Math.floor(Math.random() * 1000000 + 1)}`);
+  y1 = Number(`${y1}${Math.floor(Math.random() * 1000000 + 1)}`);
+  db.collection('car2').save({
+    id: 'ID2',
+    x: x1,
+    y: y1
+  });
+  map1
+    .findOne({ id: 'ID2' }, function(err, data1) {
+      result3 = data1.x;
+      result4 = data1.y;
+      console.log(result3);
+      console.log(result4);
 
-const random1 = (x1, y1) => {
-  // console.log(Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`));
-  // console.log(Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`));
+      console.log(typeof data1);
+    })
+    .sort([['_id', -1]]);
   return {
-    x1: Number(`${x}${Math.floor(Math.random() * 1000000 + 1)}`),
-    y1: Number(`${y}${Math.floor(Math.random() * 1000000 + 1)}`)
+    result3,
+    result4
   };
 };
 //Fake Coordinate X and Y
 (function loop() {
   setInterval(function() {
-    io.emit('c', random(14.061, 100.601));
+    io.emit('co', random1('car2', 14.064, 100.611));
   }, 1090);
 })();

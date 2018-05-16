@@ -5,4 +5,4 @@ const random = (x, y) => {
   };
 };
 
-console.log(random(14, 100));
+//console.log(random(14, 100));
