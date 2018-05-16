@@ -162,11 +162,11 @@
                             console.log('Headers:', this.getAllResponseHeaders());
                             console.log('Body:', this.responseText);
                             var profilesnapshot = JSON.parse(this.responseText);
-                            console.log(profile);
+                            console.log(profilesnapshot.subject_ids);
+                            $("#kairossdata").empty();
                             for (i = 0; i < profilesnapshot.subject_ids.length; i++) {
                                 console.log(profilesnapshot.subject_ids[i]);
                                 var ii = i + 1;
-                                $("#kairossdata").empty();
                                 $("#kairossdata").append("<p><option>" + profilesnapshot.subject_ids[i] + "</option></p>");
                             }
                         }
