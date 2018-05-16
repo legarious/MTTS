@@ -152,6 +152,7 @@ router.post('/login', (req, res, next) => {
         })(req, res, next);
       }
     })
+    //hello
     .catch(e => {
       console.log(e);
       res.redirect('/');
