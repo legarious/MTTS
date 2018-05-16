@@ -259,7 +259,7 @@ router.get('/staff', (req, res) => {
     .toArray(function(err, data) {
       console.log(data);
       var senddata = [];
-      var endtime = 30000;
+      var endtime = 86400000;
       var today = new Date().getTime();
       for (var i = 0; i < data.length; i++) {
         if (today - data[i].starttime < endtime) {
@@ -351,7 +351,7 @@ router.get('/guard', (req, res) => {
     .toArray(function(err, data) {
       console.log(data);
       var senddata = [];
-      var endtime = 30000;
+      var endtime = 86400000;
       var today = new Date().getTime();
       for (var i = 0; i < data.length; i++) {
         if (today - data[i].starttime < endtime) {
@@ -382,8 +382,29 @@ router.get('/guardbio', (req, res) => {
 });
 router.post('/guardlog', function(req, res) {
   console.log(req.body.log);
-  db.collection('guardlog').save(req.body.log);
+  db.collection('guardlog').save({
+    log: req.body.log
+  });
   res.redirect('guard');
+});
+router.get('/guardlog', function(req, res) {
+  db
+    .collection('guardlog')
+    .find({})
+    .sort(['_id', -1])
+    .toArray(function(err, data) {
+      console.log(data);
+      var senddata = [];
+      for (var i = 0; i < data.length; i++) {
+        senddata.push(data[i]);
+      }
+      console.log(senddata);
+      res.render('guardlog', {
+        [req.user.Type]: true,
+        name: req.user.Firstname,
+        stafflog: senddata
+      });
+    });
 });
 
 module.exports = router;

@@ -141,7 +141,12 @@
                         //console.log(m.images[0].candidates[0].subject_id);
                         var profileguard = m.images[0].candidates[0].subject_id;
                         console.log(profileguard);
-
+                        var today = new Date()
+                            .toISOString()
+                            .replace('-', '/')
+                            .split('T')[0]
+                            .replace('-', '/');
+                        var currenttime = new Date().getTime();
                         $.ajax({
                             dataType: 'json',
                             type: 'post',
