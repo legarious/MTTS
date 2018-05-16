@@ -162,12 +162,19 @@
                             console.log('Headers:', this.getAllResponseHeaders());
                             console.log('Body:', this.responseText);
                             var profilesnapshot = JSON.parse(this.responseText);
+<<<<<<< HEAD
                             console.log(profilesnapshot);
+=======
+                            console.log(profilesnapshot.subject_ids);
+>>>>>>> fed612624fe0143d9c8e00a77ad6967db3d26e3a
                             $("#kairossdata").empty();
                             for (i = 0; i < profilesnapshot.subject_ids.length; i++) {
                                 console.log(profilesnapshot.subject_ids[i]);
                                 var ii = i + 1;
+<<<<<<< HEAD
 
+=======
+>>>>>>> fed612624fe0143d9c8e00a77ad6967db3d26e3a
                                 $("#kairossdata").append("<p><option>" + profilesnapshot.subject_ids[i] + "</option></p>");
                             }
                         }

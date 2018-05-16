@@ -36,7 +36,9 @@
                                                 <a class="btn btn-danger" onclick="snapshot();" type="button" onclick="snapshot();">
                                                     <i class="material-icons">touch_app</i>
                                                 </a>
+
                                             </div>
+
                                             <div class="col-6">
                                                 <input placeholder="" type="text" class="form-control" id="ip">
                                             </div>
@@ -131,6 +133,7 @@
                     "processData": false,
                     "data": datad
                 }
+
                 $.ajax(settings).done(function (response) {
                     var m = response;
                     //function for save pass identification to log page
@@ -157,9 +160,10 @@
                     //console.log(+ JSON.stringify(m.images[0].subject_id))
                 });
 
-
             }
+
         </script>
+
 
 
 </section>
