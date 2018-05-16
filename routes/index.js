@@ -379,5 +379,10 @@ router.get('/guardbio', (req, res) => {
     Bdate: moment(req.user.BirthDate).format('DD MMMM YYYY')
   });
 });
+router.post('/guardlog', function(req, res) {
+  console.log(req.body.log);
+  db.collection('guardlog').save(req.body.log);
+  res.redirect('guard');
+});
 
 module.exports = router;
