@@ -400,14 +400,13 @@ router.get('/guardlog', function(req, res) {
     .find({})
     .sort(['_id', -1])
     .toArray(function(err, data) {
-      // console.log(data);
+      console.log(data);
       var senddata = [];
       for (var i = 0; i < data.length; i++) {
         senddata.push(data[i]);
       }
-      console.log(senddata[0].log);
       // var senddata1 = JSON.parse(this.senddata);
-      // console.log(senddata['log']);
+      console.log(senddata);
       res.render('guardlog', {
         [req.user.Type]: true,
         name: req.user.Firstname,
