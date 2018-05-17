@@ -18,6 +18,7 @@ var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
 var request = require('request');
 var path = require('path');
+var moment = require('moment');
 
 //##############################################################
 //Load mongoose model
@@ -121,6 +122,13 @@ io.on('connection', function(socket) {
     io.emit('hh', countpeople1);
   });
 });
+//guard count
+io.on('connection', function(socket) {
+  User.count({ Type: 'Guard' }, function(err, guardcount) {
+    // console.log(guardcount);
+    io.emit('hhh', guardcount);
+  });
+});
 
 // Change the 404 message modifing the middleware
 app.use(function(req, res) {
@@ -183,10 +191,9 @@ const random1 = (car2, x1, y1) => {
     .findOne({ id: 'ID2' }, function(err, data1) {
       result3 = data1.x;
       result4 = data1.y;
-      console.log(result3);
-      console.log(result4);
-
-      console.log(typeof data1);
+      // console.log(result3);
+      // console.log(result4);
+      // console.log(typeof data1);
     })
     .sort([['_id', -1]]);
   return {
