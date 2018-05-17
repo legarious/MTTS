@@ -11,74 +11,6 @@
         <h5>No message at this time..</h5> {{/if}}
     </div>
 </div>
-<!-- Dashboard Counts Section-->
-<section class="dashboard-counts no-padding-bottom no-padding-top">
-    <div class="container-fluid55">
-        <div class="container-fluid">
-            <div class="row bg-white">
-                <!-- Item -->
-                <div class="col-xl-4 col-sm-6">
-                    <div class="item d-flex align-items-center justify-content-center">
-
-                        <div class="icon bg-violet">
-                            <i class="icon-user"></i>
-                        </div>
-                        <div class="title">
-                            <span>Truck
-                                <br>Operate</span>
-                            <div class="progress">
-                                <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100"
-                                    class="progress-bar bg-violet"></div>
-                            </div>
-                        </div>
-                        <div class="number">
-                            <strong>5</strong>
-                        </div>
-                    </div>
-                </div>
-                <!-- Item -->
-                <div class="col-xl-4 col-sm-6">
-                    <div class="item d-flex align-items-center justify-content-center">
-                        <div class="icon bg-red">
-                            <i class="icon-padnote"></i>
-                        </div>
-                        <div class="title">
-                            <span>Truck
-                                <br>Awaiting</span>
-                            <div class="progress">
-                                <div role="progressbar" style="width: 70%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100"
-                                    class="progress-bar bg-red"></div>
-                            </div>
-                        </div>
-                        <div class="number">
-                            <strong>6</strong>
-                        </div>
-                    </div>
-                </div>
-                <!-- Item -->
-                <div class="col-xl-4 col-sm-6">
-                    <div class="item d-flex align-items-center justify-content-center">
-                        <div class="icon bg-green">
-                            <i class="icon-bill"></i>
-                        </div>
-                        <div class="title">
-                            <span>Estimate
-                                <br>Today</span>
-                            <div class="progress">
-                                <div role="progressbar" style="width: 40%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100"
-                                    class="progress-bar bg-green"></div>
-                            </div>
-                        </div>
-                        <div class="number">
-                            <strong>17</strong>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-</section>
 <section class="mapper">
     <header class="page-header-map">
         <div class="container-fluid">
@@ -97,29 +29,57 @@
     (function () {
         var socket = io('http://localhost:3000');
         //Map create
-        var map = L.map('map').setView([14.065507, 100.607233], 16);
+        var map = L.map('map').setView([14.065507, 100.607233], 14);
         L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
         var create = false;
+        var create1 = false;
         var marker;
         socket.on('c', function (data) {
-            var lat = data.x;
-            var long = data.y;
+            var lat = data.result1;
+            var long = data.result2;
+            console.log(data)
             if (create == false) {
                 marker = L.marker([lat, long]).addTo(map);
-                console.log(marker);
+
                 create = true;
             } else {
                 var newLatLng = new L.LatLng(lat, long);
                 marker.setLatLng(newLatLng);
-                marker.bindPopup("<b>Hello world!</b><br>Follow me!!!!").openPopup();
-                map.setView([lat, long]);
+                marker.bindPopup("1");
             }
             console.log(data);
         });
+        var marker1;
+        socket.on('co', function (data1) {
+            var lat1 = data1.result3;
+            var long2 = data1.result4;
+
+            console.log(data1);
+            if (create1 == false) {
+                marker1 = L.marker([lat1, long2]).addTo(map);
+                create1 = true;
+            } else {
+                var newLatLng1 = new L.LatLng(lat1, long2);
+                console.log(newLatLng1);
+                marker1.setLatLng(newLatLng1);
+                marker1.bindPopup("2");
+            }
+            console.log(data1);
+        });
+
+
         socket.on('d', function (online) {
             $('#online').html(online);
+        });
+        socket.on('h', function (countpeople) {
+            $('#countpeople').html(countpeople);
+            console.log(countpeople);
+        });
+        socket.on('hh', function (countpeople1) {
+            $('#countpeople1').html(countpeople1);
+            console.log(countpeople1);
         });
     })();
 </script>

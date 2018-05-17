@@ -108,7 +108,17 @@ router.post('/insert', function(req, res) {
 //     }
 //   }
 // };
-
+router.post('/requesthelp', function(req, res) {
+  db.collection('adminnoti').save({
+    reqid: req.body.username
+  });
+  res.redirect('/');
+});
+router.get('/help', function(req, res) {
+  res.render('help', {
+    layout: false
+  });
+});
 router.get('/', function(req, res) {
   res.render('login', {
     layout: false
@@ -302,12 +312,6 @@ router.get('/viewdriver', (req, res) => {
 });
 router.get('/staffnoti', (req, res) => {
   //still have problem
-  var thisday = new Date()
-    .toISOString()
-    .replace('-', '/')
-    .split('T')[0]
-    .replace('-', '/');
-  console.log(thisday);
   db
     .collection('addmessage')
     .find({ msgtype: 'Staff' })
@@ -315,12 +319,11 @@ router.get('/staffnoti', (req, res) => {
     .toArray(function(err, data) {
       console.log(data);
       var senddata = [];
-
+      var endtime = 86400000;
       var today = new Date().getTime();
       for (var i = 0; i < data.length; i++) {
-        if (thisday == data[i].fullday) {
+        if (today - data[i].starttime < endtime) {
           senddata.push(data[i]);
-          console.log(senddata);
         }
       }
       if (senddata.length == 0) {
@@ -330,15 +333,19 @@ router.get('/staffnoti', (req, res) => {
       res.render('staffnoti', {
         [req.user.Type]: true,
         name: req.user.Firstname,
-        staffmessage: senddata
+        msg: senddata
       });
     });
 });
 
 router.get('/staffmap', (req, res) => {
-  res.render('staffmap', {
-    name: req.user.Firstname,
-    [req.user.Type]: true
+  db.collection('accounts').find({ Type: 'Driver' }, function(err, data) {
+    console.log(data);
+    res.render('staffmap', {
+      [req.user.Type]: true,
+      name: req.user.Firstname,
+      driver: data
+    });
   });
 });
 //Guard index---------------------------------------------------------
@@ -393,12 +400,14 @@ router.get('/guardlog', function(req, res) {
     .find({})
     .sort(['_id', -1])
     .toArray(function(err, data) {
-      console.log(data);
+      // console.log(data);
       var senddata = [];
       for (var i = 0; i < data.length; i++) {
         senddata.push(data[i]);
       }
-      console.log(senddata);
+      console.log(senddata[0].log);
+      // var senddata1 = JSON.parse(this.senddata);
+      // console.log(senddata['log']);
       res.render('guardlog', {
         [req.user.Type]: true,
         name: req.user.Firstname,

@@ -9,7 +9,7 @@
   <div class="container-fluid55">
     <div class="row bg-white">
       <!-- Item -->
-      <div class="col-xl-4 col-sm-6">
+      <div class="col-6 col-sm-6">
         <div class="item d-flex align-items-center justify-content-center">
           <div class="icon bg-violet">
             <i class="icon-user"></i>
@@ -30,10 +30,10 @@
         </div>
       </div>
       <!-- Item -->
-      <div class="col-xl-4 col-sm-6">
+      <div class="col-6 col-sm-6">
         <div class="item d-flex align-items-center justify-content-center">
           <div class="icon bg-red">
-            <i class="icon-padnote"></i>
+            <i class="icon-user"></i>
           </div>
           <div class="title">
             <span>Driver
@@ -50,8 +50,37 @@
           </div>
         </div>
       </div>
+    </div>
+    <hr class="bg-white" />
+
+  </div>
+</section>
+<section class="dashboard-counts no-padding-top no-padding-bottom">
+  <div class="container-fluid55">
+    <div class="row bg-white">
       <!-- Item -->
-      <div class="col-xl-4 col-sm-6">
+      <div class="col-6 col-sm-6">
+        <div class="item d-flex align-items-center justify-content-center">
+          <div class="icon bg-blue">
+            <i class="icon-user"></i>
+          </div>
+          <div class="title">
+            <span>Guard
+              <br>Registered</span>
+            <div class="progress">
+              <div role="progressbar" style="width: 25%; height: 4px;" aria-valuenow="{#val.value}" aria-valuemin="0" aria-valuemax="100"
+                class="progress-bar bg-violet"></div>
+            </div>
+          </div>
+          <div class="number">
+            <strong id="guardcount">
+
+            </strong>
+          </div>
+        </div>
+      </div>
+      <!-- Item -->
+      <div class="col-6 col-sm-6">
         <div class="item d-flex align-items-center justify-content-center">
           <div class="icon bg-green">
             <i class="icon-bill"></i>
@@ -72,8 +101,6 @@
         </div>
       </div>
     </div>
-    <hr class="bg-white" />
-
   </div>
 </section>
 <section class="mapper">
@@ -180,8 +207,9 @@
       }
       console.log(data1);
     });
-
-
+    socket.on('hhh', function (guardcount) {
+      $('#guardcount').html(guardcount);
+    });
     socket.on('d', function (online) {
       $('#online').html(online);
     });
